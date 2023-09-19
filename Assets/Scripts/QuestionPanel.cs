@@ -115,6 +115,7 @@ public class QuestionPanel : MonoBehaviour
     public void HidePanel()
     {
         Debug.Log("Pressed Button");
+        ControlsPanel.SetActive(true);
         gameObject.SetActive(false);
         
     }

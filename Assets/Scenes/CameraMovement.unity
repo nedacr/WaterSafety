@@ -4563,13 +4563,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 1847316411}
   questionPanel: {fileID: 1463372491}
-  question1: Is today Monday?
-  question2: Is today Tuesday?
-  question3: Is today Wednesday?
-  response1: Today is not Monday
-  response2: Today is not Tuesday
-  response3: Today is Wednesday
-  answer: Today is not Monday
+  question1: They were not Practicing Water Safety because standing still without
+    Parents is not Safe
+  question2: Water Safety Protocols are being violated because.....
+  question3: Water Safety Protocols are being violated because....
+  response1: Correct! Standing still is not safe.
+  response2: Incorrect! ....
+  response3: Incorrect! ....
+  answer: Correct! Standing still is not safe.
 --- !u!4 &305384176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8547562741469487195, guid: 1cc366ffed1f2924690139d67a88b254, type: 3}
@@ -19196,13 +19197,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 88433867}
   questionPanel: {fileID: 1463372491}
-  question1: How are you?
-  question2: Are you okay?
-  question3: Are your parents around?
-  response1: I am not doing to hot
-  response2: No I am not okay
-  response3: No they left about an hour ago
-  answer: No I am not okay
+  question1: This is not the right answer.
+  question2: This is the correct answer for NPC 3
+  question3: This is not the right answer.
+  response1: Incorrect! ....
+  response2: Correct! ....
+  response3: Incorrect! ....
+  answer: Correct! ....
 --- !u!1001 &1263898378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21102,7 +21103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f12a3f0431cfacf478a61ba99a1dd233, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -131.2
+      value: -248.8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f12a3f0431cfacf478a61ba99a1dd233, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29484,13 +29485,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 735976626}
   questionPanel: {fileID: 1463372491}
-  question1: Did you have Pizza?
-  question2: Did you Drink Water?
-  question3: Did you fall off the boat?
-  response1: I did have Pizza Today
-  response2: I drank at least 4 cups
-  response3: Yah, could you tell?
-  answer: I did have Pizza Today
+  question1: This one is the correct answer. for NPC 2
+  question2: Water Safety Protocols are being violated because.....
+  question3: Water Safety Protocols are being violated because.....
+  response1: Correct! ....
+  response2: Incorrect! ....
+  response3: Incorrect! ....
+  answer: Correct! ....
 --- !u!1001 &2005235587
 PrefabInstance:
   m_ObjectHideFlags: 0
