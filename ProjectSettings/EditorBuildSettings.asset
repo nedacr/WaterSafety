@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectCharacter.unity
     guid: eece390ffa8dc6b4aa500fc60b89260a
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/CameraMovement.unity
     guid: c626316b95cef70439f6f0fd335ced11
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

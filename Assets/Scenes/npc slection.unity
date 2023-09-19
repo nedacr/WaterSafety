@@ -384,7 +384,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 855090364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestionPanel, Assembly-CSharp
         m_MethodName: Return
         m_Mode: 1
@@ -4468,7 +4468,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 855090364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestionPanel, Assembly-CSharp
         m_MethodName: showResponse1
         m_Mode: 1
@@ -5243,7 +5243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 2081487581}
-  questionPanel: {fileID: 855090364}
+  questionPanel: {fileID: 0}
   question1: How are you?
   question2: Are you okay?
   question3: Are your parents around?
@@ -6664,7 +6664,6 @@ GameObject:
   - component: {fileID: 855090361}
   - component: {fileID: 855090363}
   - component: {fileID: 855090362}
-  - component: {fileID: 855090364}
   m_Layer: 5
   m_Name: QuestionPanel
   m_TagString: Untagged
@@ -6733,24 +6732,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855090360}
   m_CullTransparentMesh: 1
---- !u!114 &855090364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855090360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ed7828e74c7e00439f7d5f5d1d72ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraSelection: {fileID: 684058380}
-  ResponsePanel: {fileID: 1889758699}
-  question1Text: {fileID: 1910015802}
-  question2Text: {fileID: 111637274}
-  question3Text: {fileID: 734673849}
-  responseText: {fileID: 855303183}
 --- !u!1 &855303181
 GameObject:
   m_ObjectHideFlags: 0
@@ -13215,7 +13196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 1079534760}
-  questionPanel: {fileID: 855090364}
+  questionPanel: {fileID: 0}
   question1: Did you have Pizza?
   question2: Did you Drink Water?
   question3: Did you fall off the boat?
@@ -13699,7 +13680,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 855090364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestionPanel, Assembly-CSharp
         m_MethodName: showResponse3
         m_Mode: 1
@@ -14059,7 +14040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 808579192}
-  questionPanel: {fileID: 855090364}
+  questionPanel: {fileID: 0}
   question1: Is today Monday?
   question2: Is today Tuesday?
   question3: Is today Wednesday?
@@ -17227,7 +17208,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 855090364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestionPanel, Assembly-CSharp
         m_MethodName: showResponse2
         m_Mode: 1
@@ -17532,7 +17513,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 855090364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestionPanel, Assembly-CSharp
         m_MethodName: HidePanel
         m_Mode: 1

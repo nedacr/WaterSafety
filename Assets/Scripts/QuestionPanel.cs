@@ -7,6 +7,7 @@ public class QuestionPanel : MonoBehaviour
     
     private NPC currentNPC;
     public GameObject ResponsePanel;
+    public GameObject ControlsPanel;
 
     public Text question1Text;
     public Text question2Text;
@@ -40,6 +41,7 @@ public class QuestionPanel : MonoBehaviour
         if (currentNPC.GetCorrect() == false)
         {
             gameObject.SetActive(true);
+            ControlsPanel.SetActive(false);
         }
     }
 
@@ -121,6 +123,7 @@ public class QuestionPanel : MonoBehaviour
     {
         Debug.Log("Returned");
         ResponsePanel.SetActive(false);
+        ControlsPanel.SetActive(true);
         cameraSelection.QuestionToMain();
     }
     
