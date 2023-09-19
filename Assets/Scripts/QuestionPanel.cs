@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class QuestionPanel : MonoBehaviour
 {
     public CameraSelection cameraSelection;
+    
     private NPC currentNPC;
     public GameObject ResponsePanel;
 
@@ -12,7 +13,6 @@ public class QuestionPanel : MonoBehaviour
     public Text question3Text;
 
     public Text responseText;
-
     
 
     void Start()
@@ -37,7 +37,10 @@ public class QuestionPanel : MonoBehaviour
         question3Text.text = question3;
 
         // Display the question panel
-        gameObject.SetActive(true);
+        if (currentNPC.GetCorrect() == false)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     public void showResponse1()
@@ -54,6 +57,12 @@ public class QuestionPanel : MonoBehaviour
         //unhide next panel
         ResponsePanel.SetActive(true);
 
+        if (currentNPC.GetAnswer() == response1)
+        {
+            currentNPC.ChangeCorrect();
+            currentNPC.changeSpotLight();
+        }
+
         cameraSelection.MainToQuestion();
     }
     public void showResponse2()
@@ -69,6 +78,13 @@ public class QuestionPanel : MonoBehaviour
 
         //unhide next panel
         ResponsePanel.SetActive(true);
+
+        if (currentNPC.GetAnswer() == response1)
+        {
+            currentNPC.ChangeCorrect();
+            currentNPC.changeSpotLight();
+        }
+
         cameraSelection.MainToQuestion();
     }
     public void showResponse3()
@@ -84,6 +100,13 @@ public class QuestionPanel : MonoBehaviour
 
         //unhide next panel
         ResponsePanel.SetActive(true);
+
+        if (currentNPC.GetAnswer() == response1)
+        {
+            currentNPC.ChangeCorrect();
+            currentNPC.changeSpotLight();
+        }
+
         cameraSelection.MainToQuestion();
     }
 
@@ -100,6 +123,7 @@ public class QuestionPanel : MonoBehaviour
         ResponsePanel.SetActive(false);
         cameraSelection.QuestionToMain();
     }
+    
 
 }
 

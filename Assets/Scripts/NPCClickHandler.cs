@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+
+    public Light spotlightLight;
+
     public QuestionPanel questionPanel;
 
     public string question1 = "How are you?";
@@ -11,6 +14,8 @@ public class NPC : MonoBehaviour
     public string response1 = "I am not doing to hot";
     public string response2 = "No I am not okay";
     public string response3 = "No they left about an hour ago";
+    public string answer = "No I am not okay";
+    bool correct  = false;
 
     public string GetQuestion1()
     {
@@ -39,6 +44,10 @@ public class NPC : MonoBehaviour
     {
         return response3;
     }
+    public string GetAnswer()
+    {
+        return answer;
+    }
 
     private void OnMouseDown()
     {
@@ -51,6 +60,19 @@ public class NPC : MonoBehaviour
         {
             Debug.LogError("QuestionPanel is not assigned to the NPC.");
         }
+    }
+
+    public void changeSpotLight()
+    {
+        spotlightLight.color = Color.green;
+    }
+    public void ChangeCorrect()
+    {
+        correct = true;
+    }
+    public bool GetCorrect()
+    {
+        return correct;
     }
 
 }
