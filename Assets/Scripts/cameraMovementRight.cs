@@ -3,65 +3,66 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
-    public float maxRightPosition = 10.0f;  // Adjust as needed
-    public float maxLeftPosition = -10.0f;  // Adjust as needed
-    private bool isMovingRight = false;
-    private bool isMovingLeft = false;
+    public float maxForwardPosition = 10.0f;  // Adjust as needed
+    public float maxBackwardPosition = -10.0f;  // Adjust as needed
+    private bool isMovingForward = false;
+    private bool isMovingBackward = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (isMovingRight)
+        if (isMovingForward)
         {
-            MoveCameraRight();
+            MoveCameraForward();
         }
 
-        if (isMovingLeft)
+        if (isMovingBackward)
         {
-            MoveCameraLeft();
+            MoveCameraBackward();
         }
     }
 
-    public void StartMovingRight()
+    public void StartMovingForward()
     {
-        isMovingRight = true;
+        isMovingForward = true;
     }
 
-    public void StopMovingRight()
+    public void StopMovingForward()
     {
-        isMovingRight = false;
+        isMovingForward = false;
     }
 
-    public void StartMovingLeft()
+    public void StartMovingBackward()
     {
-        isMovingLeft = true;
+        isMovingBackward = true;
     }
 
-    public void StopMovingLeft()
+    public void StopMovingBackward()
     {
-        isMovingLeft = false;
+        isMovingBackward = false;
     }
 
-    private void MoveCameraRight()
+    private void MoveCameraForward()
     {
-        Vector3 movement = Vector3.right * moveSpeed * Time.deltaTime;
+        Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
 
         // Clamp the new position within the specified range
-        newPosition.x = Mathf.Clamp(newPosition.x, transform.position.x, maxRightPosition);
+        newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
     }
 
-    private void MoveCameraLeft()
+    private void MoveCameraBackward()
     {
-        Vector3 movement = Vector3.left * moveSpeed * Time.deltaTime;
+        Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
 
         // Clamp the new position within the specified range
-        newPosition.x = Mathf.Clamp(newPosition.x, maxLeftPosition, transform.position.x);
+        newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
     }
 }
+
 
 
 
