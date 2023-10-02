@@ -1,24 +1,34 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class QuestionPanel : MonoBehaviour
 {
     public CameraSelection cameraSelection;
-    
+
     private NPC currentNPC;
     public GameObject ResponsePanel;
-    public GameObject ControlsPanel;
+    public GameObject ControlsPanelDock;
+    public GameObject FinishedDockPanel;
 
     public Text question1Text;
     public Text question2Text;
     public Text question3Text;
 
     public Text responseText;
-    
+
+    private List<NPC> allNPCs = new List<NPC>();
+
+    public void AddNPC(NPC npc)
+    {
+        allNPCs.Add(npc);
+    }
+
 
     void Start()
     {
         Debug.Log("This Happend!!");
+        
         //gameObject.SetActive(false);
         //ResponsePanel.SetActive(false);
     }
@@ -41,7 +51,7 @@ public class QuestionPanel : MonoBehaviour
         if (currentNPC.GetCorrect() == false)
         {
             gameObject.SetActive(true);
-            ControlsPanel.SetActive(false);
+            ControlsPanelDock.SetActive(false);
         }
     }
 
@@ -63,6 +73,12 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
         }
 
         cameraSelection.MainToQuestion();
@@ -85,6 +101,12 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
         }
 
         cameraSelection.MainToQuestion();
@@ -107,6 +129,12 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
         }
 
         cameraSelection.MainToQuestion();
@@ -115,19 +143,39 @@ public class QuestionPanel : MonoBehaviour
     public void HidePanel()
     {
         Debug.Log("Pressed Button");
-        ControlsPanel.SetActive(true);
+        ControlsPanelDock.SetActive(true);
         gameObject.SetActive(false);
-        
+
     }
 
     public void Return()
     {
         Debug.Log("Returned");
         ResponsePanel.SetActive(false);
-        ControlsPanel.SetActive(true);
+        ControlsPanelDock.SetActive(true);
         cameraSelection.QuestionToMain();
     }
-    
+
+    // Method to check if all NPCs have provided correct response
+    private bool AllNPCsCorrect()
+    {
+        foreach (var npc in allNPCs)
+        {
+            if (!npc.GetCorrect())
+                return false; // At least one NPC hasn't provided correct response
+        }
+        return true; // All NPCs have provided correct response
+    }
+
+    public void finishedDocks()
+    {
+        ResponsePanel.SetActive(false);
+        FinishedDockPanel.SetActive(true);
+
+    }
+
+
+
 
 }
 

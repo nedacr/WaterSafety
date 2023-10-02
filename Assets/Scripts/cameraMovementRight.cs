@@ -5,8 +5,12 @@ public class CameraMovement : MonoBehaviour
     public float moveSpeed = 5.0f;
     public float maxForwardPosition = 10.0f;  // Adjust as needed
     public float maxBackwardPosition = -10.0f;  // Adjust as needed
+    public float radius = 5.0f;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
+    private bool isMovingPositve = false;
+    private bool isMovingNegative = false;
+
 
     // Update is called once per frame
     void Update()
@@ -19,6 +23,16 @@ public class CameraMovement : MonoBehaviour
         if (isMovingBackward)
         {
             MoveCameraBackward();
+        }
+
+        if (isMovingPositve)
+        {
+            MoveCameraPositveAngle();
+        }
+        
+        if (isMovingNegative)
+        {
+            MoveCameraNegativeAngle();
         }
     }
 
@@ -37,12 +51,32 @@ public class CameraMovement : MonoBehaviour
         isMovingBackward = true;
     }
 
+    
     public void StopMovingBackward()
     {
         isMovingBackward = false;
     }
+    
+    public void StartMovingPositive()
+    {
+        isMovingPositve = true;
+    }
+    public void StartMovingNegative()
+    {
+        isMovingNegative = true;
+    }
 
-    private void MoveCameraForward()
+    public void StopMovingPositive()
+    {
+        isMovingPositve = false;
+    }
+    public void StopMovingNegative()
+    {
+        isMovingNegative = false;
+    }
+
+
+private void MoveCameraForward()
     {
         Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
@@ -60,6 +94,40 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+    }
+
+    private void MoveCameraPositveAngle()
+    {
+        float angle = 0.005f; // Adjust the angle as needed
+
+        // Preserve the existing x rotation and modify the y rotation
+        Quaternion currentRotation = transform.rotation;
+        Quaternion newRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y + angle, currentRotation.eulerAngles.z);
+
+        // Clamp the y rotation between 68 and 117 degrees
+        Vector3 eulerAngles = newRotation.eulerAngles;
+        eulerAngles.y = Mathf.Clamp(eulerAngles.y, 68f, 117f);
+        newRotation = Quaternion.Euler(eulerAngles);
+
+        // Apply the new rotation
+        transform.rotation = newRotation;
+    }
+
+    private void MoveCameraNegativeAngle()
+    {
+        float angle = -0.005f; // Adjust the angle as needed
+
+        // Preserve the existing x rotation and modify the y rotation
+        Quaternion currentRotation = transform.rotation;
+        Quaternion newRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y + angle, currentRotation.eulerAngles.z);
+
+        // Clamp the y rotation between 68 and 117 degrees
+        Vector3 eulerAngles = newRotation.eulerAngles;
+        eulerAngles.y = Mathf.Clamp(eulerAngles.y, 68f, 117f);
+        newRotation = Quaternion.Euler(eulerAngles);
+
+        // Apply the new rotation
+        transform.rotation = newRotation;
     }
 }
 

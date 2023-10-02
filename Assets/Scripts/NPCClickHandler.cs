@@ -15,7 +15,7 @@ public class NPC : MonoBehaviour
     public string response2 = "No I am not okay";
     public string response3 = "No they left about an hour ago";
     public string answer = "No I am not okay";
-    bool correct  = false;
+    bool correct = false;
 
     public string GetQuestion1()
     {
@@ -51,14 +51,14 @@ public class NPC : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (questionPanel != null)
+        if (questionPanel != null && CameraSelection.cameras[0].activeSelf)  // Check if camera[0] is active)
         {
             Debug.Log("Clicked!");
             questionPanel.ShowQuestionsForNPC(this);
         }
         else
         {
-            Debug.LogError("QuestionPanel is not assigned to the NPC.");
+            
         }
     }
 
@@ -73,6 +73,15 @@ public class NPC : MonoBehaviour
     public bool GetCorrect()
     {
         return correct;
+    }
+
+    private void Awake()
+    {
+        // Add this NPC to the QuestionPanel's list of NPCs
+        if (questionPanel != null)
+            questionPanel.AddNPC(this);
+        else
+            Debug.LogError("QuestionPanel is not assigned to the NPC.");
     }
 
 }
