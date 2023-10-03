@@ -73,7 +73,12 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
-            
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
         }
 
         cameraSelection.MainToQuestion();
@@ -96,7 +101,12 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
-            
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
         }
 
         cameraSelection.MainToQuestion();
@@ -115,6 +125,17 @@ public class QuestionPanel : MonoBehaviour
         //unhide next panel
         ResponsePanel.SetActive(true);
 
+        if (currentNPC.GetAnswer() == response1)
+        {
+            currentNPC.ChangeCorrect();
+            currentNPC.changeSpotLight();
+            if (AllNPCsCorrect())
+            {
+                finishedDocks();
+                Debug.Log("All NPCs have provided the correct response!");
+                return;
+            }
+        }
 
         cameraSelection.MainToQuestion();
     }
@@ -129,19 +150,10 @@ public class QuestionPanel : MonoBehaviour
 
     public void Return()
     {
-        if (AllNPCsCorrect())
-        {
-            finishedDocks();
-            Debug.Log("All NPCs have provided the correct response!");
-            
-        }
-        else
-        {
-            Debug.Log("Returned");
-            ResponsePanel.SetActive(false);
-            ControlsPanelDock.SetActive(true);
-            cameraSelection.QuestionToMain();
-        }
+        Debug.Log("Returned");
+        ResponsePanel.SetActive(false);
+        ControlsPanelDock.SetActive(true);
+        cameraSelection.QuestionToMain();
     }
 
     // Method to check if all NPCs have provided correct response
