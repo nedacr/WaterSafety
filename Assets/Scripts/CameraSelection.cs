@@ -68,17 +68,19 @@ public class CameraSelection : MonoBehaviour
 
     public void ZoomOut()
     {
-        cameras[0].SetActive(false);
-
-        ControlsPanelDock.SetActive(false);
-        ControlsPanelBeach.SetActive(true);
-
-        cameras[3].SetActive(true);
-
         // Calculate the direction from cameras[3] to cameras[0]
         Vector3 directionToCameras0 = cameras[0].transform.position - cameras[3].transform.position;
 
-        // Set the rotation of cameras[3] to look at cameras[0]
-        cameras[3].transform.rotation = Quaternion.LookRotation(directionToCameras0);
+        // Preserve the current x rotation of cameras[3]
+        float originalXRotation = cameras[3].transform.rotation.eulerAngles.x;
+
+        // Set the rotation of cameras[3] to look at cameras[0], keeping the original x rotation
+        cameras[3].transform.rotation = Quaternion.Euler(originalXRotation, Quaternion.LookRotation(directionToCameras0).eulerAngles.y, 0f);
+
+        // Deactivate cameras[0] and activate cameras[3]
+        cameras[0].SetActive(false);
+        ControlsPanelDock.SetActive(false);
+        ControlsPanelBeach.SetActive(true);
+        cameras[3].SetActive(true);
     }
 }
