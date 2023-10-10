@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class CameraSelection : MonoBehaviour
 {
     public GameObject ControlsPanelDock;
+
+    //this is not the beach but the far view 
     public GameObject ControlsPanelBeach;
+
+    public GameObject ControlsPanelLake;
+    public GameObject RealControlsPanelBeach;
     public static List<GameObject> cameras;
     //defualt index of cameras
     private int selectionIndex = 0;
@@ -29,6 +34,8 @@ public class CameraSelection : MonoBehaviour
     // 1 = question panel camera
     // 2 = beach camera
     // 3 = Dock Far Camera
+    // 4 = lake camera
+    // 5 = beach camera test temp
 
     // Update is called once per frame
     public void MainToQuestion()
@@ -52,18 +59,68 @@ public class CameraSelection : MonoBehaviour
 
     public void DockZoomin()
     {
-        cameras[3].SetActive(false);
-        ControlsPanelBeach.SetActive(false);
-        ControlsPanelDock.SetActive(true);
-        cameras[0].SetActive(true);
-
-        // Calculate the new z position for cameras[0] based on cameras[3]'s rotational position
         float rotationY = cameras[3].transform.rotation.eulerAngles.y;
-        float newZPositionForCameras0 = Mathf.Lerp(110f, 50f, (rotationY - 68f) / (117f - 68f));  // Inverted Lerp
 
-        // Update the z position of cameras[0]
-        Vector3 newPositionForCameras0 = new Vector3(cameras[0].transform.position.x, cameras[0].transform.position.y, newZPositionForCameras0);
-        cameras[0].transform.position = newPositionForCameras0;
+        Debug.Log(rotationY);
+        if ((rotationY >= 51 && rotationY <= 155) || (rotationY >= -335 && rotationY <= -225))
+        {
+            cameras[3].SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            ControlsPanelDock.SetActive(true);
+            cameras[0].SetActive(true);
+
+            // Calculate the new z position for cameras[0] based on cameras[3]'s rotational position
+            float newZPositionForCameras0 = Mathf.Lerp(110f, 50f, (rotationY - 68f) / (117f - 68f));  // Inverted Lerp
+
+            // Update the z position of cameras[0]
+            Vector3 newPositionForCameras0 = new Vector3(cameras[0].transform.position.x, cameras[0].transform.position.y, newZPositionForCameras0);
+            cameras[0].transform.position = newPositionForCameras0;
+            Debug.Log("Current rotation interval: Docks");
+        }
+        else if (rotationY >= 156 && rotationY <= 313)
+        {
+            cameras[3].SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            RealControlsPanelBeach.SetActive(true);
+            cameras[5].SetActive(true);
+
+            // Calculate the new z position for cameras[5] based on cameras[3]'s rotational position
+            float newZPositionForCameras5 = Mathf.Lerp(16f, 120f, (rotationY - 220f) / (307f - 220f));  // Inverted Lerp
+
+            // Update the z position of cameras[0]
+            Vector3 newPositionForCameras5 = new Vector3(cameras[5].transform.position.x, cameras[5].transform.position.y, newZPositionForCameras5);
+            cameras[5].transform.position = newPositionForCameras5;
+
+            Debug.Log("Current rotation interval: Beach");
+        }
+        else if (rotationY >= 314 || rotationY <= 50)
+        {
+            float newXPositionForCameras4 = 0;
+            cameras[3].SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            ControlsPanelLake.SetActive(true);
+            cameras[4].SetActive(true);
+            if (rotationY >= 0 && rotationY <= 43)
+            {
+                newXPositionForCameras4 = Mathf.Lerp(-100f, 0f, (rotationY + 43f) / (43f + 43f));  // Inverted Lerp
+            }
+            else if (rotationY >= 314 && rotationY <= 359.99)
+            {
+                newXPositionForCameras4 = Mathf.Lerp(-100f, -50f, (rotationY - 316f) / (360f - 314f));
+            }
+            else
+            {
+
+                Debug.Log("ERROR");
+            }
+            // Calculate the new x position for cameras[0] based on cameras[3]'s rotational position
+
+            Debug.Log(rotationY + "   " + newXPositionForCameras4);
+            // Update the x position of cameras[0]
+            Vector3 newPositionForCameras4 = new Vector3(newXPositionForCameras4, cameras[4].transform.position.y, cameras[4].transform.position.z);
+            cameras[4].transform.position = newPositionForCameras4;
+            Debug.Log("Current rotation interval: Lake");
+        }
     }
 
     public void ZoomOut()
@@ -83,4 +140,41 @@ public class CameraSelection : MonoBehaviour
         ControlsPanelBeach.SetActive(true);
         cameras[3].SetActive(true);
     }
+
+    public void LakeZoomOut()
+    {
+        // Calculate the direction from cameras[3] to cameras[0]
+        Vector3 directionToCameras4 = cameras[4].transform.position - cameras[3].transform.position;
+
+        // Preserve the current x rotation of cameras[3]
+        float originalXRotation = cameras[3].transform.rotation.eulerAngles.x;
+
+        // Set the rotation of cameras[3] to look at cameras[0], keeping the original x rotation
+        cameras[3].transform.rotation = Quaternion.Euler(originalXRotation, Quaternion.LookRotation(directionToCameras4).eulerAngles.y, 0f);
+
+        // Deactivate cameras[4] and activate cameras[3]
+        cameras[4].SetActive(false);
+        ControlsPanelLake.SetActive(false);
+        ControlsPanelBeach.SetActive(true);
+        cameras[3].SetActive(true);
+    }
+
+    public void BeachZoomOut()
+    {
+        // Calculate the direction from cameras[3] to cameras[0]
+        Vector3 directionToCameras5 = cameras[5].transform.position - cameras[3].transform.position;
+
+        // Preserve the current x rotation of cameras[3]
+        float originalXRotation = cameras[3].transform.rotation.eulerAngles.x;
+
+        // Set the rotation of cameras[3] to look at cameras[0], keeping the original x rotation
+        cameras[3].transform.rotation = Quaternion.Euler(originalXRotation, Quaternion.LookRotation(directionToCameras5).eulerAngles.y, 0f);
+
+        // Deactivate cameras[5] and activate cameras[3]
+        cameras[5].SetActive(false);
+        RealControlsPanelBeach.SetActive(false);
+        ControlsPanelBeach.SetActive(true);
+        cameras[3].SetActive(true);
+    }
 }
+
