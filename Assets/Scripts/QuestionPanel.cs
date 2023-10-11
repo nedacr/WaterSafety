@@ -246,7 +246,13 @@ public class QuestionPanel : MonoBehaviour
 
     private void finishedCheck()
     {
-        if(AllDockNPCsCorrect() && !DockFinished)
+        /*if (LakeFinished && BeachFinished && DockFinished)
+        {
+            allSceneFinished();
+            Debug.Log("EVERY SCENE IS FINISHED");
+            return;
+        }*/
+        if (AllDockNPCsCorrect() && !DockFinished)
         {
             finishedDocks();
             Debug.Log("All Dock NPCs have provided the correct response!");
@@ -267,11 +273,7 @@ public class QuestionPanel : MonoBehaviour
             LakeFinished = true;
             
         }
-        if(LakeFinished && BeachFinished && DockFinished)
-        {
-            //Game Finished()
-            Debug.Log("EVERY SCENE IS FINISHED");
-        }
+        
     }
 
     // Method to check if all NPCs have provided correct response
@@ -344,22 +346,25 @@ public class QuestionPanel : MonoBehaviour
         {
             case 1: // Docks
                 FinishedDockPanel.SetActive(false);
-                cameraSelection.QuestionToMain();
+                cameraSelection.MainToQuestion();
                 break;
             case 2: // Beach
                 FinishedBeachPanel.SetActive(false);
-                cameraSelection.QuestionToBeach();
+                cameraSelection.MainToBeach();
                 break;
             case 3: // Lake
                 FinishedLakePanel.SetActive(false);
-                cameraSelection.QuestionToLake();
+                cameraSelection.MainToLake();
                 break;
             default:
                 Debug.LogWarning("Unknown SceneNumber for NPC.");
                 break;
         }
-        ControlsPanelFar.SetActive(true);
-        cameraSelection.QuestionToFar();
+        
+
+        SummaryPanel.SetActive(true);
+        gameObject.SetActive(false);
+
     }
 
     public void finishedDocks()
@@ -428,6 +433,38 @@ public class QuestionPanel : MonoBehaviour
 
     private void allSceneFinished()
     {
+        
+        Debug.Log("All scenes have been finished");
+        switch (currentNPC.GetSceneNumber())
+        {
+            case 1: // Docks
+                
+
+                Button docksContinueButton = FinishedDockPanel.transform.Find("ContinueButton").GetComponent<Button>();
+                if (docksContinueButton != null)
+                    docksContinueButton.gameObject.SetActive(true);
+
+                break;
+            case 2: // Beach
+                
+
+                Button beachContinueButton = FinishedBeachPanel.transform.Find("ContinueButton").GetComponent<Button>();
+                if (beachContinueButton != null)
+                    beachContinueButton.gameObject.SetActive(true);
+
+                break;
+            case 3: // Lake
+                
+
+                Button lakeContinueButton = FinishedLakePanel.transform.Find("ContinueButton").GetComponent<Button>();
+                if (lakeContinueButton != null)
+                    lakeContinueButton.gameObject.SetActive(true);
+
+                break;
+            default:
+                Debug.LogWarning("Unknown SceneNumber for NPC.");
+                break;
+        }
 
     }
 

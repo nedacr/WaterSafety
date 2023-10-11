@@ -86,7 +86,7 @@ public class CameraSelection : MonoBehaviour
     public void QuestionToFar()
     {
         cameras[3].SetActive(true);
-        cameras[0].SetActive(false);
+        cameras[1].SetActive(false);
     }
 
     public void DockZoomin()
