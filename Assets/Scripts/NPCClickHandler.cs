@@ -7,6 +7,10 @@ public class NPC : MonoBehaviour
 
     public QuestionPanel questionPanel;
 
+
+    // docks 1, beach 2, Lake 3
+    public int SceneNumber = 0;
+
     public string question1 = "How are you?";
     public string question2 = "Are you okay?";
     public string question3 = "Are your parents around?";
@@ -51,7 +55,7 @@ public class NPC : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (questionPanel != null && CameraSelection.cameras[0].activeSelf)  // Check if camera[0] is active)
+        if (questionPanel != null && (CameraSelection.cameras[0].activeSelf || CameraSelection.cameras[5].activeSelf || CameraSelection.cameras[4].activeSelf))  // Check if camera[0] is active)
         {
             Debug.Log("Clicked!");
             questionPanel.ShowQuestionsForNPC(this);
@@ -73,6 +77,11 @@ public class NPC : MonoBehaviour
     public bool GetCorrect()
     {
         return correct;
+    }
+
+    public int GetSceneNumber()
+    {
+        return SceneNumber;
     }
 
     private void Awake()

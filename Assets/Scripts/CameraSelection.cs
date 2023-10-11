@@ -9,7 +9,7 @@ public class CameraSelection : MonoBehaviour
 
     //this is not the beach but the far view 
     public GameObject ControlsPanelBeach;
-
+    public float smoothness = 2.0f;
     public GameObject ControlsPanelLake;
     public GameObject RealControlsPanelBeach;
     public static List<GameObject> cameras;
@@ -32,12 +32,13 @@ public class CameraSelection : MonoBehaviour
     //Current camera list 
     // 0 = dock close camera
     // 1 = question panel camera
-    // 2 = beach camera
+    // 2 = beach camera - THIS CAMERA IS NOT OPERATIONAL USE CAMERA 5 FOR BEACH
     // 3 = Dock Far Camera
     // 4 = lake camera
     // 5 = beach camera test temp
 
     // Update is called once per frame
+    //main is dock camera
     public void MainToQuestion()
     {
         if (cameras.Count > 1 && cameras[1] != null && cameras[0] != null)
@@ -51,10 +52,41 @@ public class CameraSelection : MonoBehaviour
         }
     }
 
+    public void MainToBeach()
+    {
+        cameras[1].SetActive(true);
+        cameras[5].SetActive(false);
+    }
+
+    public void MainToLake()
+    {
+        cameras[1].SetActive(true);
+        cameras[4].SetActive(false);
+    }
+
+    //main is dock camera
     public void QuestionToMain()
     {
         cameras[1].SetActive(false);
         cameras[0].SetActive(true);
+    }
+
+    public void QuestionToBeach()
+    {
+        cameras[1].SetActive(false);
+        cameras[5].SetActive(true);
+    }
+
+    public void QuestionToLake()
+    {
+        cameras[1].SetActive(false);
+        cameras[4].SetActive(true);
+    }
+
+    public void QuestionToFar()
+    {
+        cameras[3].SetActive(true);
+        cameras[0].SetActive(false);
     }
 
     public void DockZoomin()
@@ -175,6 +207,61 @@ public class CameraSelection : MonoBehaviour
         RealControlsPanelBeach.SetActive(false);
         ControlsPanelBeach.SetActive(true);
         cameras[3].SetActive(true);
+    }
+
+
+    //Camera Shortcut
+
+    private bool isRotating = false;
+
+    private IEnumerator SmoothRotateCameraToYRotation(float targetYRotation)
+    {
+        if (cameras.Count > 3 && cameras[3] != null)
+        {
+            isRotating = true;
+
+            float startRotation = cameras[3].transform.rotation.eulerAngles.y;
+
+            // Calculate the shortest rotational path
+            float shortestPath = ((targetYRotation - startRotation + 180) % 360) - 180;
+
+            float t = 0f;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * smoothness;
+                float newRotation = Mathf.Lerp(startRotation, startRotation + shortestPath, t);
+                cameras[3].transform.rotation = Quaternion.Euler(cameras[3].transform.rotation.eulerAngles.x, newRotation, cameras[3].transform.rotation.eulerAngles.z);
+                yield return null;
+            }
+
+            isRotating = false;
+        }
+        else
+        {
+            Debug.LogError("Camera[3] does not exist or is not set.");
+        }
+    }
+
+    public void RotateCameraToYRotation(float targetYRotation)
+    {
+        if (!isRotating)
+            StartCoroutine(SmoothRotateCameraToYRotation(targetYRotation));
+    }
+
+    public void beachShortCut()
+    {
+        RotateCameraToYRotation(225f);
+    }
+
+    public void lakeShortCut()
+    {
+        RotateCameraToYRotation(361f);
+    }
+
+    public void docksShortCut()
+    {
+        RotateCameraToYRotation(88f);
     }
 }
 
