@@ -380,6 +380,7 @@ public class QuestionPanel : MonoBehaviour
                 docksButton.gameObject.SetActive(false);
                 Debug.Log("Docks button has been removed");
                 ScenesFinished++;
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
@@ -400,7 +401,10 @@ public class QuestionPanel : MonoBehaviour
             {
                 LakeButton.gameObject.SetActive(false);
                 Debug.Log("Lake button has been removed");
+
                 ScenesFinished++;
+
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
@@ -414,6 +418,7 @@ public class QuestionPanel : MonoBehaviour
     {
         ResponsePanel.SetActive(false);
         FinishedBeachPanel.SetActive(true);
+        Debug.Log("we got here");
         if (ControlsPanelFar != null)
         {
             Button BeachButton = ControlsPanelFar.transform.Find("BeachButton").GetComponent<Button>();
@@ -422,6 +427,7 @@ public class QuestionPanel : MonoBehaviour
                 BeachButton.gameObject.SetActive(false);
                 Debug.Log("Beach button has been removed");
                 ScenesFinished++;
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
