@@ -39,7 +39,7 @@ public class QuestionPanel : MonoBehaviour
     void Start()
     {
         Debug.Log("This Happend!!");
-        
+
         //gameObject.SetActive(false);
         //ResponsePanel.SetActive(false);
     }
@@ -241,7 +241,7 @@ public class QuestionPanel : MonoBehaviour
         }
 
         ResponsePanel.SetActive(false);
-        
+
     }
 
     private void finishedCheck()
@@ -257,23 +257,23 @@ public class QuestionPanel : MonoBehaviour
             finishedDocks();
             Debug.Log("All Dock NPCs have provided the correct response!");
             DockFinished = true;
-            
+
         }
         if (AllBeachNPCsCorrect() && !BeachFinished)
         {
             finishedBeach();
             Debug.Log("All Beach NPCs have provided the correct response!");
             BeachFinished = true;
-            
+
         }
         if (AllLakeNPCsCorrect() && !LakeFinished)
         {
             finishedLake();
             Debug.Log("All Lake NPCs have provided the correct response!");
             LakeFinished = true;
-            
+
         }
-        
+
     }
 
     // Method to check if all NPCs have provided correct response
@@ -312,7 +312,7 @@ public class QuestionPanel : MonoBehaviour
 
     public void returnSceneFinished()
     {
-        
+
 
         switch (currentNPC.GetSceneNumber())
         {
@@ -329,7 +329,7 @@ public class QuestionPanel : MonoBehaviour
             case 3: // Lake
                 ControlsPanelLake.SetActive(true);
                 FinishedLakePanel.SetActive(false);
-          
+
                 cameraSelection.QuestionToLake();
                 break;
             default:
@@ -360,7 +360,7 @@ public class QuestionPanel : MonoBehaviour
                 Debug.LogWarning("Unknown SceneNumber for NPC.");
                 break;
         }
-        
+
 
         SummaryPanel.SetActive(true);
         gameObject.SetActive(false);
@@ -380,6 +380,7 @@ public class QuestionPanel : MonoBehaviour
                 docksButton.gameObject.SetActive(false);
                 Debug.Log("Docks button has been removed");
                 ScenesFinished++;
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
@@ -400,7 +401,10 @@ public class QuestionPanel : MonoBehaviour
             {
                 LakeButton.gameObject.SetActive(false);
                 Debug.Log("Lake button has been removed");
+
                 ScenesFinished++;
+
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
@@ -414,6 +418,7 @@ public class QuestionPanel : MonoBehaviour
     {
         ResponsePanel.SetActive(false);
         FinishedBeachPanel.SetActive(true);
+        Debug.Log("we got here");
         if (ControlsPanelFar != null)
         {
             Button BeachButton = ControlsPanelFar.transform.Find("BeachButton").GetComponent<Button>();
@@ -422,6 +427,7 @@ public class QuestionPanel : MonoBehaviour
                 BeachButton.gameObject.SetActive(false);
                 Debug.Log("Beach button has been removed");
                 ScenesFinished++;
+                Debug.Log(ScenesFinished);
                 if (ScenesFinished >= 3)
                 {
                     allSceneFinished();
@@ -433,12 +439,12 @@ public class QuestionPanel : MonoBehaviour
 
     private void allSceneFinished()
     {
-        
+
         Debug.Log("All scenes have been finished");
         switch (currentNPC.GetSceneNumber())
         {
             case 1: // Docks
-                
+
 
                 Button docksContinueButton = FinishedDockPanel.transform.Find("ContinueButton").GetComponent<Button>();
                 if (docksContinueButton != null)
@@ -446,7 +452,7 @@ public class QuestionPanel : MonoBehaviour
 
                 break;
             case 2: // Beach
-                
+
 
                 Button beachContinueButton = FinishedBeachPanel.transform.Find("ContinueButton").GetComponent<Button>();
                 if (beachContinueButton != null)
@@ -454,7 +460,7 @@ public class QuestionPanel : MonoBehaviour
 
                 break;
             case 3: // Lake
-                
+
 
                 Button lakeContinueButton = FinishedLakePanel.transform.Find("ContinueButton").GetComponent<Button>();
                 if (lakeContinueButton != null)
