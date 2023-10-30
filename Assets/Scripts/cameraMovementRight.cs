@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
 
     // Add variables for camera acceleration
     public float acceleration = 2.0f;
-    public float maxSpeed = 20.0f;
+    private float maxSpeed = 30.0f;
 
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
