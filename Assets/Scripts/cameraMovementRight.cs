@@ -13,8 +13,8 @@ public class CameraMovement : MonoBehaviour
     //public static List<GameObject> cameras;
 
     // Add variables for camera acceleration
-    public float acceleration = 2.0f;
-    private float maxSpeed = 30.0f;
+    public float acceleration = 10.0f;
+    private float maxSpeed = 3000.0f;
 
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
@@ -158,7 +158,7 @@ public class CameraMovement : MonoBehaviour
             else
             {
                 // Gradually increase the moveSpeed up to the maxSpeed
-                moveSpeed += acceleration * Time.deltaTime;
+                moveSpeed += acceleration * Time.deltaTime * 9;
 
             }
             
