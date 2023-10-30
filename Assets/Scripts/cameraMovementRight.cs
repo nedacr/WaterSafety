@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
 
     // Add variables for camera acceleration
     public float acceleration = 2.0f;
-    public float maxSpeed = 10.0f;
+    public float maxSpeed = 20.0f;
 
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
@@ -150,13 +150,20 @@ public class CameraMovement : MonoBehaviour
         //acceleration? but its reversed for some reason
         if (gameObject.tag == "MainCamera")
         {
-            // Gradually increase the moveSpeed up to the maxSpeed
-            if (moveSpeed < maxSpeed)
+            if (moveSpeed > maxSpeed)
             {
-                moveSpeed += acceleration * Time.deltaTime;
-                moveSpeed = Mathf.Min(moveSpeed, maxSpeed);
-                Debug.Log("Speed Increased");
+                moveSpeed = maxSpeed;
+                Debug.Log("Speed Maxed");
             }
+            else
+            {
+                // Gradually increase the moveSpeed up to the maxSpeed
+                moveSpeed += acceleration * Time.deltaTime;
+
+            }
+            
+
+            
             //this is supposed to work on zoom out and at the very beginning, but only activates on zoom in
             Debug.Log("Zoomed Out");
         }
@@ -275,6 +282,7 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
 
     private void MoveCameraBackward()
@@ -288,10 +296,12 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
 
     private void MoveCameraPositveAngle()
     {
+        mainCheck();
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
         float initialZRotation = transform.rotation.eulerAngles.z;
@@ -306,10 +316,12 @@ public class CameraMovement : MonoBehaviour
         currentRotation.x = initialXRotation;
         currentRotation.z = initialZRotation;
         transform.rotation = Quaternion.Euler(currentRotation);
+        
     }
 
     private void MoveCameraNegativeAngle()
     {
+        mainCheck();
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
         float initialZRotation = transform.rotation.eulerAngles.z;
@@ -324,6 +336,7 @@ public class CameraMovement : MonoBehaviour
         currentRotation.x = initialXRotation;
         currentRotation.z = initialZRotation;
         transform.rotation = Quaternion.Euler(currentRotation);
+        
     }
 
     //beach - includes moving angle, might have to rewrite this to be straight line??
@@ -358,6 +371,7 @@ public class CameraMovement : MonoBehaviour
             Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation, initialZRotation);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed * Time.deltaTime);
         }
+        
     }
 
     private void MoveCameraLakeLeft()
@@ -370,6 +384,7 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
 
     private void MoveCameraLakeRight()
@@ -382,6 +397,7 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
 
     private void MoveCameraBeachFoward()
@@ -394,6 +410,7 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
     private void MoveCameraBeachBackward()
     {
@@ -405,6 +422,7 @@ public class CameraMovement : MonoBehaviour
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
         transform.position = newPosition;
+        
     }
 
 }
