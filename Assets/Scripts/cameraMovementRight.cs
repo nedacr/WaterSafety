@@ -1,13 +1,16 @@
 using UnityEngine;
+//using System.Collections.Generic;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float moveSpeed = 5.0f;
+    private float moveSpeed = 5.0f;
     public float maxForwardPosition = 10.0f;  // Adjust as needed
     public float maxBackwardPosition = -10.0f;  // Adjust as needed
     public float radius = 5.0f;
 
-    public Camera mainCamera;
+    public GameObject mainCamera;
+    public bool isActive;
+    //public static List<GameObject> cameras;
 
     // Add variables for camera acceleration
     public float acceleration = 2.0f;
@@ -44,9 +47,19 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         initialRotation = transform.rotation;
-        //mainCamera = Camera.main;  assigned in editor
 
+        //foreach (Transform t in transform)
+        //{
+        //    cameras.Add(t.gameObject);
 
+        //
+        if (gameObject.tag == "MainCamera")
+        {
+            mainCamera = gameObject;
+            isActive = true;
+        }
+        mainCheck();
+        
     }
 
 
@@ -59,52 +72,65 @@ public class CameraMovement : MonoBehaviour
         {
             Debug.Log("Acceleration applied");
         }
+        
 
         if (isMovingForward)
         {
+            mainCheck(); 
             MoveCameraForward();
         }
 
         if (isMovingBackward)
         {
+            mainCheck(); 
             MoveCameraBackward();
         }
 
         if (isMovingPositve)
         {
+            mainCheck(); 
             MoveCameraPositveAngle();
         }
 
         if (isMovingNegative)
         {
+            mainCheck(); 
             MoveCameraNegativeAngle();
         }
         if (beachIsMovingLeft)
         {
+            mainCheck(); 
             MoveCamera(targetPoint1, targetRotationPoint1);
         }
 
         if (BeachIsMovingRight)
         {
+            mainCheck(); 
             MoveCamera(targetPoint2, targetRotationPoint2);
         }
         if (LakeIsMovingLeft)
         {
+            mainCheck(); 
             MoveCameraLakeLeft();
         }
         if (LakeIsMovingRight)
         {
+            mainCheck(); 
             MoveCameraLakeRight();
         }
         if (BeachisMovingForward)
         {
+            mainCheck(); 
             MoveCameraBeachFoward();
         }
         if (BeachisMovingBackward)
         {
+            mainCheck(); 
             MoveCameraBackward();
         }
-
+        
+        Debug.Log("Main Camera active in Scene: " + isActive);
+        Debug.Log("Current Speed is " + moveSpeed);
     }
 
     // Accelerating camera movement
@@ -122,15 +148,22 @@ public class CameraMovement : MonoBehaviour
     public void mainCheck()
     {
         //acceleration? but its reversed for some reason
-        if (mainCamera == Camera.current)
+        if (gameObject.tag == "MainCamera")
         {
             // Gradually increase the moveSpeed up to the maxSpeed
-            moveSpeed = Mathf.Lerp(moveSpeed, maxSpeed, Time.deltaTime * acceleration);
-            Debug.Log("Acceleration added");
+            if (moveSpeed < maxSpeed)
+            {
+                moveSpeed += acceleration * Time.deltaTime;
+                moveSpeed = Mathf.Min(moveSpeed, maxSpeed);
+                Debug.Log("Speed Increased");
+            }
+            //this is supposed to work on zoom out and at the very beginning, but only activates on zoom in
+            Debug.Log("Zoomed Out");
         }
         else
         {
             moveSpeed = movementSpeed;
+            Debug.Log("Zoomed In");
         }
     }
 
