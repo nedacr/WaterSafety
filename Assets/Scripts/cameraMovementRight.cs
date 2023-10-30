@@ -6,6 +6,13 @@ public class CameraMovement : MonoBehaviour
     public float maxForwardPosition = 10.0f;  // Adjust as needed
     public float maxBackwardPosition = -10.0f;  // Adjust as needed
     public float radius = 5.0f;
+
+    public Camera mainCamera;
+
+    // Add variables for camera acceleration
+    public float acceleration = 2.0f;
+    public float maxSpeed = 10.0f;
+
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isMovingPositve = false;
@@ -37,6 +44,9 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         initialRotation = transform.rotation;
+        //mainCamera = Camera.main;  assigned in editor
+
+
     }
 
 
@@ -44,6 +54,12 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(moveSpeed > movementSpeed)
+        {
+            Debug.Log("Acceleration applied");
+        }
+
         if (isMovingForward)
         {
             MoveCameraForward();
@@ -87,6 +103,34 @@ public class CameraMovement : MonoBehaviour
         if (BeachisMovingBackward)
         {
             MoveCameraBackward();
+        }
+
+    }
+
+    // Accelerating camera movement
+    //private float AccelerateCameraMovement()
+    //{
+    //    // Accelerate the camera if it's the main camera
+    //    if (maxSpeed > moveSpeed)
+    //    {
+    //        moveSpeed += acceleration;
+    //    }
+
+    //    return moveSpeed;
+    //}
+
+    public void mainCheck()
+    {
+        //acceleration? but its reversed for some reason
+        if (mainCamera == Camera.current)
+        {
+            // Gradually increase the moveSpeed up to the maxSpeed
+            moveSpeed = Mathf.Lerp(moveSpeed, maxSpeed, Time.deltaTime * acceleration);
+            Debug.Log("Acceleration added");
+        }
+        else
+        {
+            moveSpeed = movementSpeed;
         }
     }
 
@@ -189,8 +233,11 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraForward()
     {
+        mainCheck();
         Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        //AccelerateCameraMovement(ref movement);
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -199,8 +246,11 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraBackward()
     {
+        mainCheck();
         Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        //AccelerateCameraMovement(ref movement);
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -246,8 +296,10 @@ public class CameraMovement : MonoBehaviour
     //beach - includes moving angle, might have to rewrite this to be straight line??
     private void MoveCamera(Vector3 targetPosition, float targetRotation)
     {
+        mainCheck();
         Vector3 direction = (targetPosition - transform.position).normalized;
-        Vector3 movement = direction * movementSpeed * Time.deltaTime;
+        Vector3 movement = direction * moveSpeed * Time.deltaTime;
+        Debug.Log("Acceleration Used");
 
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
@@ -271,14 +323,16 @@ public class CameraMovement : MonoBehaviour
 
             // Rotate only on the y-axis towards the target rotation
             Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation, initialZRotation);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, movementSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed * Time.deltaTime);
         }
     }
 
     private void MoveCameraLakeLeft()
     {
+        mainCheck();
         Vector3 movement = Vector3.left * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
@@ -287,8 +341,10 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraLakeRight()
     {
+        mainCheck();
         Vector3 movement = Vector3.right * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
@@ -297,8 +353,10 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraBeachFoward()
     {
+        mainCheck();
         Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -306,8 +364,10 @@ public class CameraMovement : MonoBehaviour
     }
     private void MoveCameraBeachBackward()
     {
+        mainCheck();
         Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
+        Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
