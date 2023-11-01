@@ -20,7 +20,7 @@ public class SummaryPage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SummaryPanel.SetActive(false);
+        SummaryPanel.SetActive(true);
         ReviewPanel.SetActive(false);
         LeaderboardPanel.SetActive(false);
         ScenarioPanel.SetActive(false);
