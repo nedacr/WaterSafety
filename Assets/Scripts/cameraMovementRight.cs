@@ -7,14 +7,15 @@ public class CameraMovement : MonoBehaviour
     public float maxForwardPosition = 10.0f;  // Adjust as needed
     public float maxBackwardPosition = -10.0f;  // Adjust as needed
     public float radius = 5.0f;
+    private float velocity = 0;
 
     public GameObject mainCamera;
     public bool isActive;
     //public static List<GameObject> cameras;
 
     // Add variables for camera acceleration
-    public float acceleration = 10.0f;
-    private float maxSpeed = 3000.0f;
+    public float acceleration = 2.0f;
+    private float maxSpeed = 30.0f;
 
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
@@ -158,11 +159,11 @@ public class CameraMovement : MonoBehaviour
             else
             {
                 // Gradually increase the moveSpeed up to the maxSpeed
-                moveSpeed += acceleration * Time.deltaTime * 9;
+                velocity = 0;
+                velocity += acceleration * Time.deltaTime;
+                moveSpeed += velocity * Time.deltaTime;
 
             }
-            
-
             
             //this is supposed to work on zoom out and at the very beginning, but only activates on zoom in
             Debug.Log("Zoomed Out");
@@ -207,10 +208,12 @@ public class CameraMovement : MonoBehaviour
     public void StopMovingPositive()
     {
         isMovingPositve = false;
+        moveSpeed = movementSpeed;
     }
     public void StopMovingNegative()
     {
         isMovingNegative = false;
+        moveSpeed = movementSpeed;
     }
 
     public void StartMovingBeachLeft()
@@ -287,6 +290,7 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraBackward()
     {
+        
         mainCheck();
         Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
@@ -301,12 +305,13 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraPositveAngle()
     {
+        
         mainCheck();
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
         float initialZRotation = transform.rotation.eulerAngles.z;
 
-        float angle = 360.0f * 0.03f * Time.deltaTime;  // 360 degrees per second
+        float angle = 360.0f * 0.03f * Time.deltaTime * moveSpeed;  // 360 degrees per second
 
         // Rotate the camera around the y-axis only
         transform.Rotate(0, angle, 0);
@@ -326,7 +331,7 @@ public class CameraMovement : MonoBehaviour
         float initialXRotation = transform.rotation.eulerAngles.x;
         float initialZRotation = transform.rotation.eulerAngles.z;
 
-        float angle = -360.0f * 0.03f * Time.deltaTime;  // -360 degrees per second
+        float angle = -360.0f * 0.03f * Time.deltaTime * moveSpeed;  // -360 degrees per second
 
         // Rotate the camera around the y-axis only
         transform.Rotate(0, angle, 0);
@@ -357,7 +362,7 @@ public class CameraMovement : MonoBehaviour
             transform.position = targetPosition;
 
             // Maintain the initial x and z rotations
-            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation, initialZRotation);
+            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
             transform.rotation = targetRotationQuaternion;
 
             beachIsMovingLeft = false;
@@ -368,8 +373,8 @@ public class CameraMovement : MonoBehaviour
             transform.position += movement;
 
             // Rotate only on the y-axis towards the target rotation
-            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation, initialZRotation);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed * Time.deltaTime);
+            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed);
         }
         
     }
