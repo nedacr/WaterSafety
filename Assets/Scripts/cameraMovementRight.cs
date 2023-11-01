@@ -59,7 +59,7 @@ public class CameraMovement : MonoBehaviour
             mainCamera = gameObject;
             isActive = true;
         }
-        mainCheck();
+        //mainCheck();
         
     }
 
@@ -77,56 +77,56 @@ public class CameraMovement : MonoBehaviour
 
         if (isMovingForward)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraForward();
         }
 
         if (isMovingBackward)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraBackward();
         }
 
         if (isMovingPositve)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraPositveAngle();
         }
 
         if (isMovingNegative)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraNegativeAngle();
         }
         if (beachIsMovingLeft)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCamera(targetPoint1, targetRotationPoint1);
         }
 
         if (BeachIsMovingRight)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCamera(targetPoint2, targetRotationPoint2);
         }
         if (LakeIsMovingLeft)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraLakeLeft();
         }
         if (LakeIsMovingRight)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraLakeRight();
         }
         if (BeachisMovingForward)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraBeachFoward();
         }
         if (BeachisMovingBackward)
         {
-            mainCheck(); 
+            //mainCheck(); 
             MoveCameraBackward();
         }
         
@@ -162,7 +162,7 @@ public class CameraMovement : MonoBehaviour
                 velocity = 0;
                 velocity += acceleration * Time.deltaTime;
                 moveSpeed += velocity * Time.deltaTime;
-
+                print(moveSpeed);
             }
             
             //this is supposed to work on zoom out and at the very beginning, but only activates on zoom in
@@ -326,6 +326,7 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraNegativeAngle()
     {
+        print("Testing");
         mainCheck();
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
@@ -362,8 +363,8 @@ public class CameraMovement : MonoBehaviour
             transform.position = targetPosition;
 
             // Maintain the initial x and z rotations
-            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
-            transform.rotation = targetRotationQuaternion;
+            //Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
+            //transform.rotation = targetRotationQuaternion;
 
             beachIsMovingLeft = false;
             BeachIsMovingRight = false;
@@ -373,8 +374,8 @@ public class CameraMovement : MonoBehaviour
             transform.position += movement;
 
             // Rotate only on the y-axis towards the target rotation
-            Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed);
+            //Quaternion targetRotationQuaternion = Quaternion.Euler(initialXRotation, targetRotation * moveSpeed, initialZRotation);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationQuaternion, moveSpeed);
         }
         
     }
