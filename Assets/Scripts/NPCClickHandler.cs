@@ -11,6 +11,8 @@ public class NPC : MonoBehaviour
     // docks 1, beach 2, Lake 3
     public int SceneNumber = 0;
 
+    public string uniqueQuestion = "What is this NPC doing Wrong?";
+
     public string question1 = "How are you?";
     public string question2 = "Are you okay?";
     public string question3 = "Are your parents around?";
@@ -20,6 +22,14 @@ public class NPC : MonoBehaviour
     public string response3 = "No they left about an hour ago";
     public string answer = "No I am not okay";
     bool correct = false;
+    bool neverWrong = true;
+
+    private int points = 25;
+
+    public string getUniqueQuestion()
+    {
+        return uniqueQuestion;
+    }
 
     public string GetQuestion1()
     {
@@ -62,8 +72,19 @@ public class NPC : MonoBehaviour
         }
         else
         {
-            
+
         }
+    }
+    public void lowerPoints()
+    {
+        if (points != 0)
+        {
+            points = points / 2;
+        }
+    }
+    public int getPoints()
+    {
+        return points;
     }
 
     public void changeSpotLight()
@@ -73,6 +94,11 @@ public class NPC : MonoBehaviour
     public void ChangeCorrect()
     {
         correct = true;
+    }
+
+    public void changeNeverWrong()
+    {
+        neverWrong = false;
     }
     public bool GetCorrect()
     {

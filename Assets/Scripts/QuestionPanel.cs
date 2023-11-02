@@ -21,13 +21,20 @@ public class QuestionPanel : MonoBehaviour
     public GameObject SummaryPanel;
     public GameObject ControlsPanelFar;
 
+    public Text overheadQuestion;
+
     public Text question1Text;
     public Text question2Text;
     public Text question3Text;
 
     public Text responseText;
 
+    public Text scoreCard;
+
     private List<NPC> allNPCs = new List<NPC>();
+
+    public int totalPoints = 0;
+    
 
     public void AddNPC(NPC npc)
     {
@@ -52,6 +59,8 @@ public class QuestionPanel : MonoBehaviour
         string question1 = npc.GetQuestion1();
         string question2 = npc.GetQuestion2();
         string question3 = npc.GetQuestion3();
+
+        string npcQuestion = npc.getUniqueQuestion();
 
         // Set the questions in the UI text elements
         question1Text.text = question1;
@@ -86,7 +95,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
         Debug.Log(currentNPC.GetSceneNumber());
         switch (currentNPC.GetSceneNumber())
@@ -123,7 +139,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
 
         switch (currentNPC.GetSceneNumber())
@@ -160,7 +183,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
 
         switch (currentNPC.GetSceneNumber())
@@ -178,6 +208,12 @@ public class QuestionPanel : MonoBehaviour
                 Debug.LogWarning("idk my guy we just should never get here");
                 break;
         }
+    }
+
+    public void updateScore()
+    {
+        string strNumber = totalPoints.ToString();
+        scoreCard.text = strNumber;
     }
 
     public void HidePanel()
