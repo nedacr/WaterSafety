@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SummaryPage : MonoBehaviour
 {
@@ -23,6 +24,13 @@ public class SummaryPage : MonoBehaviour
     public Text ReviewQuestions;
     public Text ReviewAnswers;
 
+    //leaderboard object stuff
+    public TMP_InputField enterName;
+    public GameObject NamePanel;
+    public GameObject Leaderboard;
+    public GameObject KeyboardCanvas;
+
+
     //list of all scenario locations (is there a faster way?)
     public List<GameObject> scenarioCorrectObjects;
     public List<GameObject> scenarioIncorrectObjects;
@@ -30,6 +38,8 @@ public class SummaryPage : MonoBehaviour
     private List<List<string>> listOfCorrectLists = new List<List<string>>();
     private List<List<string>> listOfIncorrectLists = new List<List<string>>();
 
+    public TextMeshProUGUI[] scoreTexts;  // TextMeshPro components for displaying scores
+    public TextMeshProUGUI[] nameTexts;
 
     // Start is called before the first frame update
     void Start()
@@ -66,10 +76,70 @@ public class SummaryPage : MonoBehaviour
         ScenarioPanel.SetActive(false);
     }
     //----------------------------------------------------
+    public void showScores()
+    {
+        NamePanel.SetActive(false);
+        Leaderboard.SetActive(true);
+        KeyboardCanvas.SetActive(false);
+        SaveScore();
+        UpdateLeaderboardUI();
+    }
+
+    public void SaveScore()
+    {
+        QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
+        string playerName = enterName.text;
+        int score = questionPanel.getTotalPoints();
+
+        for (int i = 0; i < scoreTexts.Length; i++)
+        {
+            // Check if the current score is higher than the saved scores
+            int savedScore = PlayerPrefs.GetInt("Score" + i, 0);
+            if (score > savedScore)
+            {
+                // Shift existing scores down
+                for (int j = scoreTexts.Length - 1; j > i; j--)
+                {
+                    int previousScore = PlayerPrefs.GetInt("Score" + (j - 1), 0);
+                    string previousName = PlayerPrefs.GetString("Name" + (j - 1), "");
+                    PlayerPrefs.SetInt("Score" + j, previousScore);
+                    PlayerPrefs.SetString("Name" + j, previousName);
+                }
+
+                // Save the new score and name
+                PlayerPrefs.SetInt("Score" + i, score);
+                PlayerPrefs.SetString("Name" + i, playerName);
+                break;
+            }
+        }
+    }
+
+    // Call this function to update the leaderboard UI
+    public void UpdateLeaderboardUI()
+    {
+        for (int i = 0; i < scoreTexts.Length; i++)
+        {
+            int score = PlayerPrefs.GetInt("Score" + i, 0);
+            string playerName = PlayerPrefs.GetString("Name" + i, "");
+            scoreTexts[i].text = score.ToString();
+            nameTexts[i].text = playerName;
+        }
+    }
+    public void closeNamePanel()
+    {
+        NamePanel.SetActive(false);
+        Leaderboard.SetActive(true);
+        KeyboardCanvas.SetActive(false);
+
+    }
+    //----------------------------------------------------
+
+
     public void changeToLeaderboardPanel()
     {
         gameObject.SetActive(false);
         LeaderboardPanel.SetActive(true);
+        Leaderboard.SetActive(true);
     }
 
     public void changeToReviewPanel()
@@ -92,6 +162,19 @@ public class SummaryPage : MonoBehaviour
 
     public void changeBeachReview()
     {
+
+        listOfCorrectLists.Clear();
+        listOfIncorrectLists.Clear();
+
+        for(int q = 0; q < 10; q++)
+        {
+            GameObject scenarioCorrectObject = scenarioCorrectObjects[q];
+            scenarioCorrectObject.SetActive(true);
+            GameObject scenarioIncorrectObject = scenarioIncorrectObjects[q];
+            scenarioIncorrectObject.SetActive(true);
+        }
+
+
         QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
 
         SelectionObject.SetActive(false);
@@ -112,12 +195,12 @@ public class SummaryPage : MonoBehaviour
 
                 scenarioText.text = npc.GetAnswer();
 
-                string answer = npc.GetAnswer();
-                int points = npc.getPoints();
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer();
 
                 List<string> innerList = new List<string>();
                 innerList.Add(answer);
-                innerList.Add(points.ToString());
+                innerList.Add(points);
 
                 listOfCorrectLists.Add(innerList);
 
@@ -141,12 +224,12 @@ public class SummaryPage : MonoBehaviour
 
                 scenarioText.text = npc.GetAnswer();
 
-                string answer = npc.GetAnswer();
-                int points = npc.getPoints();
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer(); //points means answer (idk i dont want to change it 25 times)
 
                 List<string> innerList = new List<string>();
                 innerList.Add(answer);
-                innerList.Add(points.ToString());
+                innerList.Add(points);
 
                 listOfIncorrectLists.Add(innerList);
 
@@ -172,6 +255,197 @@ public class SummaryPage : MonoBehaviour
         }
 
     }
+
+    public void changeLakeReview()
+    {
+
+        listOfCorrectLists.Clear();
+        listOfIncorrectLists.Clear();
+
+        for (int q = 0; q < 10; q++)
+        {
+            GameObject scenarioCorrectObject = scenarioCorrectObjects[q];
+            scenarioCorrectObject.SetActive(true);
+            GameObject scenarioIncorrectObject = scenarioIncorrectObjects[q];
+            scenarioIncorrectObject.SetActive(true);
+        }
+
+        QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
+
+        SelectionObject.SetActive(false);
+        CorrectList.SetActive(true);
+        IncorrectList.SetActive(true);
+        List<NPC> correct = questionPanel.GetCorrectThreeNPC();
+        List<NPC> incorrect = questionPanel.GetFalseThreeNPC();
+
+        int i = 0;
+        foreach (NPC npc in correct)
+        {
+            if (i < scenarioCorrectObjects.Count) // Check if there are enough scenario objects
+            {
+                GameObject scenarioObject = scenarioCorrectObjects[i];
+
+                Text scenarioText = scenarioObject.GetComponent<Text>();
+
+
+                scenarioText.text = npc.GetAnswer();
+
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer();
+
+                List<string> innerList = new List<string>();
+                innerList.Add(answer);
+                innerList.Add(points);
+
+                listOfCorrectLists.Add(innerList);
+
+
+                i++;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough scenario objects for correct answers.");
+                break;
+            }
+        }
+
+        int j = 0;
+        foreach (NPC npc in incorrect)
+        {
+            if (j < scenarioIncorrectObjects.Count) // Check if there are enough scenario objects
+            {
+                GameObject scenarioObject = scenarioIncorrectObjects[j];
+                Text scenarioText = scenarioObject.GetComponent<Text>();
+
+                scenarioText.text = npc.GetAnswer();
+
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer(); //points means answer (idk i dont want to change it 25 times)
+
+                List<string> innerList = new List<string>();
+                innerList.Add(answer);
+                innerList.Add(points);
+
+                listOfIncorrectLists.Add(innerList);
+
+
+                j++;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough scenario objects for correct answers.");
+                break;
+            }
+        }
+
+        for (int k = i; k < 10; k++)
+        {
+            GameObject scenarioObject = scenarioCorrectObjects[k];
+            scenarioObject.SetActive(false);
+        }
+        for (int l = j; l < 10; l++)
+        {
+            GameObject scenarioObject = scenarioIncorrectObjects[l];
+            scenarioObject.SetActive(false);
+        }
+
+    }
+
+    public void changeDocksReview()
+    {
+
+        listOfCorrectLists.Clear();
+        listOfIncorrectLists.Clear();
+
+        for (int q = 0; q < 10; q++)
+        {
+            GameObject scenarioCorrectObject = scenarioCorrectObjects[q];
+            scenarioCorrectObject.SetActive(true);
+            GameObject scenarioIncorrectObject = scenarioIncorrectObjects[q];
+            scenarioIncorrectObject.SetActive(true);
+        }
+
+        QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
+
+        SelectionObject.SetActive(false);
+        CorrectList.SetActive(true);
+        IncorrectList.SetActive(true);
+        List<NPC> correct = questionPanel.GetCorrectOneNPC();
+        List<NPC> incorrect = questionPanel.GetFalseOneNPC();
+
+        int i = 0;
+        foreach (NPC npc in correct)
+        {
+            if (i < scenarioCorrectObjects.Count) // Check if there are enough scenario objects
+            {
+                GameObject scenarioObject = scenarioCorrectObjects[i];
+
+                Text scenarioText = scenarioObject.GetComponent<Text>();
+
+
+                scenarioText.text = npc.GetAnswer();
+
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer();
+
+                List<string> innerList = new List<string>();
+                innerList.Add(answer);
+                innerList.Add(points);
+
+                listOfCorrectLists.Add(innerList);
+
+
+                i++;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough scenario objects for correct answers.");
+                break;
+            }
+        }
+
+        int j = 0;
+        foreach (NPC npc in incorrect)
+        {
+            if (j < scenarioIncorrectObjects.Count) // Check if there are enough scenario objects
+            {
+                GameObject scenarioObject = scenarioIncorrectObjects[j];
+                Text scenarioText = scenarioObject.GetComponent<Text>();
+
+                scenarioText.text = npc.GetAnswer();
+
+                string answer = npc.getReviewQuestion();
+                string points = npc.getReviewAnswer(); //points means answer (idk i dont want to change it 25 times)
+
+                List<string> innerList = new List<string>();
+                innerList.Add(answer);
+                innerList.Add(points);
+
+                listOfIncorrectLists.Add(innerList);
+
+
+                j++;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough scenario objects for correct answers.");
+                break;
+            }
+        }
+
+        for (int k = i; k < 10; k++)
+        {
+            GameObject scenarioObject = scenarioCorrectObjects[k];
+            scenarioObject.SetActive(false);
+        }
+        for (int l = j; l < 10; l++)
+        {
+            GameObject scenarioObject = scenarioIncorrectObjects[l];
+            scenarioObject.SetActive(false);
+        }
+
+    }
+
     public void reviewCorrect1()
     {
 
@@ -501,6 +775,11 @@ public class SummaryPage : MonoBehaviour
         SelectionObject.SetActive(false);
         ReviewPanel.SetActive(false);
         SummaryPanel.SetActive(true);
+        KeyboardCanvas.SetActive(false);
+        LeaderboardPanel.SetActive(false);
+        Leaderboard.SetActive(false);
+        NamePanel.SetActive(false);
+        KeyboardCanvas.SetActive(false);
     }
 
 

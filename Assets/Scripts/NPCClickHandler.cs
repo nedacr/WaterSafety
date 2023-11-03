@@ -21,10 +21,22 @@ public class NPC : MonoBehaviour
     public string response2 = "No I am not okay";
     public string response3 = "No they left about an hour ago";
     public string answer = "No I am not okay";
+    public string reviewQuestion = "this is the question placeholder";
+    public string reviewAnswer = "this is the answer placeholder";
     bool correct = false;
     bool neverWrong = true;
 
     private int points = 25;
+
+    public string getReviewQuestion()
+    {
+        return reviewQuestion;
+    }
+
+    public string getReviewAnswer()
+    {
+        return reviewAnswer;
+    }
 
     public string getUniqueQuestion()
     {

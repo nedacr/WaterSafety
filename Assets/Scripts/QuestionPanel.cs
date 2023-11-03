@@ -147,7 +147,7 @@ public class QuestionPanel : MonoBehaviour
 
         foreach (NPC npc in unsortedNPCs)
         {
-            if (npc.GetSceneNumber() == 2)
+            if (npc.GetSceneNumber() == 3)
             {
                 if (npc.getNeverWrong())
                 {
@@ -169,7 +169,7 @@ public class QuestionPanel : MonoBehaviour
 
         foreach (NPC npc in unsortedNPCs)
         {
-            if (npc.GetSceneNumber() == 1)
+            if (npc.GetSceneNumber() == 3)
             {
                 if (!npc.getNeverWrong())
                 {
@@ -346,6 +346,11 @@ public class QuestionPanel : MonoBehaviour
     {
         string strNumber = totalPoints.ToString();
         scoreCard.text = strNumber;
+    }
+
+    public int getTotalPoints()
+    {
+        return totalPoints;
     }
 
     public void HidePanel()
