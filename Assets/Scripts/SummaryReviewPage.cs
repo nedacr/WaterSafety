@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +11,7 @@ public class SummaryReviewPage : MonoBehaviour
     public GameObject LeaderboardPanel;
     public GameObject ScenarioPanel;
 
-    public Button BackToSummary;
-    public Button CloseScenarioPanel;
-    public Button ReviewScenario;
+    
 
     public Text Qestion;
     public Text Answer;
@@ -35,9 +33,7 @@ public class SummaryReviewPage : MonoBehaviour
 
     private void Awake()
     {
-        BackToSummary.onClick.AddListener(ToSummary);
-        ReviewScenario.onClick.AddListener(OpenScenario);
-        CloseScenarioPanel.onClick.AddListener(ClsoeScenario);
+       
     }
 
     private void ClsoeScenario()
@@ -56,3 +52,4 @@ public class SummaryReviewPage : MonoBehaviour
         SummaryPanel.SetActive(true);
     }
 }
+*/

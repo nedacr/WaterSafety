@@ -100,6 +100,12 @@ public class NPC : MonoBehaviour
     {
         neverWrong = false;
     }
+
+    public bool getNeverWrong()
+    {
+        return neverWrong;
+    }
+
     public bool GetCorrect()
     {
         return correct;
@@ -118,6 +124,8 @@ public class NPC : MonoBehaviour
         else
             Debug.LogError("QuestionPanel is not assigned to the NPC.");
     }
+
+
 
 }
 

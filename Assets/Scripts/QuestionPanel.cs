@@ -51,6 +51,138 @@ public class QuestionPanel : MonoBehaviour
         //ResponsePanel.SetActive(false);
     }
 
+    public List<NPC> GetCorrectOneNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctOne = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 1)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctOne.Add(npc);
+                }
+
+            }
+            
+        }
+
+        return correctOne;
+    }
+
+    public List<NPC> GetFalseOneNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseOne = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 1)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseOne.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseOne;
+    }
+
+    public List<NPC> GetCorrectTwoNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctTwo = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 2)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctTwo.Add(npc);
+                }
+
+            }
+
+        }
+
+        return correctTwo;
+    }
+
+    public List<NPC> GetFalseTwoNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseTwo = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 2)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseTwo.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseTwo;
+    }
+
+    public List<NPC> GetCorrectThreeNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctThree = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 2)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctThree.Add(npc);
+                }
+
+            }
+
+        }
+
+        return correctThree;
+    }
+
+    public List<NPC> GetFalseThreeNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseThree = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 1)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseThree.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseThree;
+    }
+
     public void ShowQuestionsForNPC(NPC npc)
     {
         currentNPC = npc;
