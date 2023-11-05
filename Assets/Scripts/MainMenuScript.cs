@@ -14,10 +14,15 @@ public class MainMenuScript : MonoBehaviour
     public GameObject SettingsMenu;
     public GameObject AdminMenu;
     public GameObject AdminPassword;
+    public GameObject KeyboardCanvas;
 
     //admin objects
     public TMP_InputField enterPassword;
 
+    //admin password
+    public Text errorMessageText;
+
+    private string adminPassword = "carter12";
 
     // Start is called before the first frame update
     void Start()
@@ -36,19 +41,46 @@ public class MainMenuScript : MonoBehaviour
 
     public void changeToAdmin()
     {
-        //some sort of password check here
-        /* if passord = storedpassword then 
-        SettingsMenu.SetActive(false);
-        AdminMenu.SetActive(true);
+        string enteredPassword = enterPassword.text;
+        KeyboardCanvas.SetActive(false);
 
-        else error message.setactive(true)
-        */
+        if (enteredPassword == adminPassword)
+        {
+            MainMenuPanel.SetActive(false);
+            AdminPassword.SetActive(false);
+            AdminMenu.SetActive(true);
+        }
+        else
+        {
+            // Display an error message.
+            errorMessageText.text = "Invalid password. Please try again.";
+        }
     }
 
     public void changeToPassword()
     {
-        SettingsMenu.SetActive(false);
+        MainMenuPanel.SetActive(false);
         AdminPassword.SetActive(true);
     }
+
+    public void ResetLeaderboard()
+    {
+        PlayerPrefs.SetInt("ResetLeaderboard", 1);
+    }
+
+    public void QuitGame()
+    {
+        // Call this function to quit the application when a quit button is pressed.
+        Application.Quit();
+    }
+    public void closeToMenu()
+    {
+        HowtoPlay.SetActive(false);
+        SettingsMenu.SetActive(false);
+        AdminMenu.SetActive(false);
+        KeyboardCanvas.SetActive(false);
+
+    }
+
 
 }
