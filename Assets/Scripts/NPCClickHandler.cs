@@ -7,6 +7,11 @@ public class NPC : MonoBehaviour
 
     public QuestionPanel questionPanel;
 
+    public string npcName = "placeHolder"; // should be set to a number
+    private const string CorrectKeyPrefix = "CorrectCount_";
+    private const string WrongKeyPrefix = "WrongCount_";
+    private const string QuestionPrefix = "Question_";
+    private const string LocationPrefix = "Location_";
 
     // docks 1, beach 2, Lake 3
     public int SceneNumber = 0;
@@ -27,6 +32,38 @@ public class NPC : MonoBehaviour
     bool neverWrong = true;
 
     private int points = 25;
+
+    public void IncreaseCorrectCount()
+    {
+        int currentCorrectCount = PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
+        currentCorrectCount++;
+        PlayerPrefs.SetInt(CorrectKeyPrefix + npcName, currentCorrectCount);
+    }
+
+    // Use this method to increase the wrong count for the NPC
+    public void IncreaseWrongCount()
+    {
+        int currentWrongCount = PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
+        currentWrongCount++;
+        PlayerPrefs.SetInt(WrongKeyPrefix + npcName, currentWrongCount);
+    }
+
+    // Use this method to get the correct count for the NPC
+    public int GetCorrectCount()
+    {
+        return PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
+    }
+
+    // Use this method to get the wrong count for the NPC
+    public int GetWrongCount()
+    {
+        return PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
+    }
+
+    public string GetStoredQuestion()
+    {
+        return PlayerPrefs.GetString(QuestionPrefix + npcName, "");
+    }
 
     public string getReviewQuestion()
     {
@@ -115,6 +152,17 @@ public class NPC : MonoBehaviour
 
     public bool getNeverWrong()
     {
+        if (neverWrong == true)
+        {
+            IncreaseCorrectCount();
+        }
+        else
+        {
+            IncreaseWrongCount();
+        }
+
+        PlayerPrefs.SetString(WrongKeyPrefix + npcName, uniqueQuestion);
+        PlayerPrefs.SetInt(LocationPrefix + npcName, GetSceneNumber());
         return neverWrong;
     }
 

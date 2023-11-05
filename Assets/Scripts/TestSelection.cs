@@ -35,8 +35,8 @@ public class TestSelection : MonoBehaviour
 
     private void selectRandomAnimation()
     {
-        int randomAnimationIndex = Random.Range(0, characterSelectionAnimations.Length);
-        characterAnimator.Play(characterSelectionAnimations[randomAnimationIndex].name);
+        // Set the trigger to play the animation
+        characterAnimator.SetTrigger("StartCharacterSelection");
         Debug.Log("changed");
     }
 
