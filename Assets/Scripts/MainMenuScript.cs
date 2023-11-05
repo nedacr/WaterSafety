@@ -79,6 +79,7 @@ public class MainMenuScript : MonoBehaviour
         SettingsMenu.SetActive(false);
         AdminMenu.SetActive(false);
         KeyboardCanvas.SetActive(false);
+        AdminPassword.SetActive(false);
 
     }
 
