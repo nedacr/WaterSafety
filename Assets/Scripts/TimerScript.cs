@@ -9,8 +9,8 @@ public class TimerScript : MonoBehaviour
     Color deepOrange = new Color(1.0f, .325f, 0.0f, 1.0f);
     Color orange = new Color(1.0f, .639f, 0.0f, 1.0f);
     Color brightOrange = new Color(1.0f, .775f, .11f, 1.0f);
-    float MainTimer;
-    float AFKTimer;
+    [SerializeField] float MainTimer;
+    [SerializeField] float AFKTimer;
     public Text Timer;
     public Text TimerShade;
     public Text AFKTimerText;
