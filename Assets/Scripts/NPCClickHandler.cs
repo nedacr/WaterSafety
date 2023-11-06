@@ -7,9 +7,16 @@ public class NPC : MonoBehaviour
 
     public QuestionPanel questionPanel;
 
+    public string npcName = "placeHolder"; // should be set to a number
+    private const string CorrectKeyPrefix = "CorrectCount_";
+    private const string WrongKeyPrefix = "WrongCount_";
+    private const string QuestionPrefix = "Question_";
+    private const string LocationPrefix = "Location_";
 
     // docks 1, beach 2, Lake 3
     public int SceneNumber = 0;
+
+    public string uniqueQuestion = "What is this NPC doing Wrong?";
 
     public string question1 = "How are you?";
     public string question2 = "Are you okay?";
@@ -19,7 +26,59 @@ public class NPC : MonoBehaviour
     public string response2 = "No I am not okay";
     public string response3 = "No they left about an hour ago";
     public string answer = "No I am not okay";
+    public string reviewQuestion = "this is the question placeholder";
+    public string reviewAnswer = "this is the answer placeholder";
     bool correct = false;
+    bool neverWrong = true;
+
+    private int points = 25;
+
+    public void IncreaseCorrectCount()
+    {
+        int currentCorrectCount = PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
+        currentCorrectCount++;
+        PlayerPrefs.SetInt(CorrectKeyPrefix + npcName, currentCorrectCount);
+    }
+
+    // Use this method to increase the wrong count for the NPC
+    public void IncreaseWrongCount()
+    {
+        int currentWrongCount = PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
+        currentWrongCount++;
+        PlayerPrefs.SetInt(WrongKeyPrefix + npcName, currentWrongCount);
+    }
+
+    // Use this method to get the correct count for the NPC
+    public int GetCorrectCount()
+    {
+        return PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
+    }
+
+    // Use this method to get the wrong count for the NPC
+    public int GetWrongCount()
+    {
+        return PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
+    }
+
+    public string GetStoredQuestion()
+    {
+        return PlayerPrefs.GetString(QuestionPrefix + npcName, "");
+    }
+
+    public string getReviewQuestion()
+    {
+        return reviewQuestion;
+    }
+
+    public string getReviewAnswer()
+    {
+        return reviewAnswer;
+    }
+
+    public string getUniqueQuestion()
+    {
+        return uniqueQuestion;
+    }
 
     public string GetQuestion1()
     {
@@ -62,8 +121,19 @@ public class NPC : MonoBehaviour
         }
         else
         {
-            
+
         }
+    }
+    public void lowerPoints()
+    {
+        if (points != 0)
+        {
+            points = points / 2;
+        }
+    }
+    public int getPoints()
+    {
+        return points;
     }
 
     public void changeSpotLight()
@@ -74,6 +144,28 @@ public class NPC : MonoBehaviour
     {
         correct = true;
     }
+
+    public void changeNeverWrong()
+    {
+        neverWrong = false;
+    }
+
+    public bool getNeverWrong()
+    {
+        if (neverWrong == true)
+        {
+            IncreaseCorrectCount();
+        }
+        else
+        {
+            IncreaseWrongCount();
+        }
+
+        PlayerPrefs.SetString(WrongKeyPrefix + npcName, uniqueQuestion);
+        PlayerPrefs.SetInt(LocationPrefix + npcName, GetSceneNumber());
+        return neverWrong;
+    }
+
     public bool GetCorrect()
     {
         return correct;
@@ -92,6 +184,8 @@ public class NPC : MonoBehaviour
         else
             Debug.LogError("QuestionPanel is not assigned to the NPC.");
     }
+
+
 
 }
 
