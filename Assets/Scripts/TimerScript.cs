@@ -9,8 +9,9 @@ public class TimerScript : MonoBehaviour
     Color deepOrange = new Color(1.0f, .325f, 0.0f, 1.0f);
     Color orange = new Color(1.0f, .639f, 0.0f, 1.0f);
     Color brightOrange = new Color(1.0f, .775f, .11f, 1.0f);
-    float MainTimer;
-    float AFKTimer;
+    float AFKpop = 60;
+    [SerializeField] float MainTimer;
+    [SerializeField] float AFKTimer;
     public Text Timer;
     public Text TimerShade;
     public Text AFKTimerText;
@@ -50,18 +51,16 @@ public class TimerScript : MonoBehaviour
         AFKTimer -= Time.deltaTime;
         DisplayMainTimer(MainTimer);
         DisplayAFKTimer(AFKTimer);
-        if(AFKTimer <= 60)
+        if(AFKTimer <= AFKpop)
         {
             AFKWarning.SetActive(true);
+            ChangeAFK(AFKpop);
         }
         else
         {
             AFKWarning.SetActive(false);
         }
-        if(AFKTimer <= 60)
-        {
-            ChangeColor(AFKTimer);
-        }
+        
         if(MainTimer <= 0)
         {
             TimeUp();
@@ -69,6 +68,26 @@ public class TimerScript : MonoBehaviour
         if(AFKTimer <= 0)
         {
             //sends game to Main Menu
+        }
+        if(MainTimer <= (MainTimer * 2) / 3)
+        {
+            ChangeMainColor();
+        }
+    }
+
+    private void ChangeMainColor()
+    {
+        if(MainTimer <= 60)
+        {
+            Timer.color = Color.red;
+        }
+        else if(MainTimer <= MainTimer / 3)
+        {
+            Timer.color = orange;
+        }
+        else if(MainTimer <= (MainTimer * 2) / 3)
+        {
+            Timer.color = Color.yellow;
         }
     }
 
@@ -87,25 +106,17 @@ public class TimerScript : MonoBehaviour
         SummaryScene.SetActive(true);
     }
 
-    private void ChangeColor(float aFKTimer)
+    private void ChangeAFK(float afkPop)
     {
-        if (AFKTimer < 5)
+        if (AFKpop < 10)
         {
             AFKTimerText.color = Color.red;
         }
-        else if (AFKTimer < 10)
-        {
-            AFKTimerText.color = deepOrange;
-        }
-        else if (AFKTimer < 15)
+        else if(AFKpop <= AFKpop / 3)
         {
             AFKTimerText.color = orange;
         }
-        else if (AFKTimer < 20)
-        {
-            AFKTimerText.color = brightOrange;
-        }
-        else if (AFKTimer < 25)
+        else if(AFKpop <= (AFKpop * 2) / 3)
         {
             AFKTimerText.color = Color.yellow;
         }
