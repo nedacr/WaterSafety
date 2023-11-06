@@ -48,6 +48,12 @@ public class SummaryPage : MonoBehaviour
         ReviewPanel.SetActive(false);
         LeaderboardPanel.SetActive(false);
         ScenarioPanel.SetActive(false);
+
+        if (PlayerPrefs.GetInt("ResetLeaderboard", 0) == 1)
+        {
+            ResetLeaderboard();
+            PlayerPrefs.SetInt("ResetLeaderboard", 0); // Reset the flag
+        }
     }
 
     // Update is called once per frame
@@ -76,6 +82,20 @@ public class SummaryPage : MonoBehaviour
         ScenarioPanel.SetActive(false);
     }
     //----------------------------------------------------
+    void ResetLeaderboard()
+    {
+        for (int i = 0; i < scoreTexts.Length; i++)
+        {
+            PlayerPrefs.DeleteKey("Score" + i);
+            PlayerPrefs.DeleteKey("Name" + i);
+        }
+
+        // You can also reset any other leaderboard-related PlayerPrefs keys here if needed.
+
+        // Call this to update the UI after resetting the leaderboard.
+        UpdateLeaderboardUI();
+    }
+
     public void showScores()
     {
         NamePanel.SetActive(false);
