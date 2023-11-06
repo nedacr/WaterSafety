@@ -21,13 +21,20 @@ public class QuestionPanel : MonoBehaviour
     public GameObject SummaryPanel;
     public GameObject ControlsPanelFar;
 
+    public Text overheadQuestion;
+
     public Text question1Text;
     public Text question2Text;
     public Text question3Text;
 
     public Text responseText;
 
+    public Text scoreCard;
+
     private List<NPC> allNPCs = new List<NPC>();
+
+    public int totalPoints = 0;
+    
 
     public void AddNPC(NPC npc)
     {
@@ -44,6 +51,138 @@ public class QuestionPanel : MonoBehaviour
         //ResponsePanel.SetActive(false);
     }
 
+    public List<NPC> GetCorrectOneNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctOne = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 1)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctOne.Add(npc);
+                }
+
+            }
+            
+        }
+
+        return correctOne;
+    }
+
+    public List<NPC> GetFalseOneNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseOne = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 1)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseOne.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseOne;
+    }
+
+    public List<NPC> GetCorrectTwoNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctTwo = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 2)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctTwo.Add(npc);
+                }
+
+            }
+
+        }
+
+        return correctTwo;
+    }
+
+    public List<NPC> GetFalseTwoNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseTwo = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 2)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseTwo.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseTwo;
+    }
+
+    public List<NPC> GetCorrectThreeNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> correctThree = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 3)
+            {
+                if (npc.getNeverWrong())
+                {
+                    correctThree.Add(npc);
+                }
+
+            }
+
+        }
+
+        return correctThree;
+    }
+
+    public List<NPC> GetFalseThreeNPC()
+    {
+        List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
+
+        List<NPC> falseThree = new List<NPC>();
+
+        foreach (NPC npc in unsortedNPCs)
+        {
+            if (npc.GetSceneNumber() == 3)
+            {
+                if (!npc.getNeverWrong())
+                {
+                    falseThree.Add(npc);
+                }
+
+            }
+
+        }
+
+        return falseThree;
+    }
+
     public void ShowQuestionsForNPC(NPC npc)
     {
         currentNPC = npc;
@@ -52,6 +191,8 @@ public class QuestionPanel : MonoBehaviour
         string question1 = npc.GetQuestion1();
         string question2 = npc.GetQuestion2();
         string question3 = npc.GetQuestion3();
+
+        string npcQuestion = npc.getUniqueQuestion();
 
         // Set the questions in the UI text elements
         question1Text.text = question1;
@@ -86,7 +227,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
         Debug.Log(currentNPC.GetSceneNumber());
         switch (currentNPC.GetSceneNumber())
@@ -123,7 +271,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
 
         switch (currentNPC.GetSceneNumber())
@@ -160,7 +315,14 @@ public class QuestionPanel : MonoBehaviour
         {
             currentNPC.ChangeCorrect();
             currentNPC.changeSpotLight();
+            totalPoints = totalPoints + currentNPC.getPoints();
+            updateScore();
             finishedCheck();
+        }
+        else
+        {
+            currentNPC.lowerPoints();
+            currentNPC.changeNeverWrong();
         }
 
         switch (currentNPC.GetSceneNumber())
@@ -178,6 +340,17 @@ public class QuestionPanel : MonoBehaviour
                 Debug.LogWarning("idk my guy we just should never get here");
                 break;
         }
+    }
+
+    public void updateScore()
+    {
+        string strNumber = totalPoints.ToString();
+        scoreCard.text = strNumber;
+    }
+
+    public int getTotalPoints()
+    {
+        return totalPoints;
     }
 
     public void HidePanel()

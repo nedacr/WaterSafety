@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +11,7 @@ public class SummaryLeaderPage : MonoBehaviour
     public GameObject LeaderboardPanel;
     public GameObject NamePanel;
 
-    public Button BackToSummary;
-    public Button CloseName;
-    public Button AddName;
+    
 
     public Text LeaderboardNames;
 
@@ -34,9 +32,7 @@ public class SummaryLeaderPage : MonoBehaviour
 
     private void Awake()
     {
-        BackToSummary.onClick.AddListener(ToSummary);
-        CloseName.onClick.AddListener(CloseNamePanel);
-        AddName.onClick.AddListener(CloseNamePanel);
+        
     }
 
     private void CloseNamePanel()
@@ -50,3 +46,4 @@ public class SummaryLeaderPage : MonoBehaviour
         SummaryPanel.SetActive(true);
     }
 }
+*/
