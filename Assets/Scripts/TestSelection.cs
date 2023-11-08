@@ -9,6 +9,9 @@ public class TestSelection : MonoBehaviour
     //defualt index of the model
     private int selectionIndex = 0;
 
+    public Animator characterAnimator;
+    public AnimationClip[] characterSelectionAnimations;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +29,15 @@ public class TestSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    if (Input.GetMouseButton(0))
-        transform.Rotate(new Vector3(0.0f, Input.GetAxis("Mouse X"), 0.0f));
+        if (Input.GetMouseButton(0))
+            transform.Rotate(new Vector3(0.0f, Input.GetAxis("Mouse X"), 0.0f));
+    }
+
+    private void selectRandomAnimation()
+    {
+        // Set the trigger to play the animation
+        characterAnimator.SetTrigger("StartCharacterSelection");
+        Debug.Log("changed");
     }
 
     public void leftSelect()
@@ -43,6 +53,7 @@ public class TestSelection : MonoBehaviour
         }
         finalIndex = selectionIndex;
         models[selectionIndex].SetActive(true);
+        selectRandomAnimation();
     }
     public void rightSelect()
     {
@@ -57,5 +68,6 @@ public class TestSelection : MonoBehaviour
         }
         finalIndex = selectionIndex;
         models[selectionIndex].SetActive(true);
+        selectRandomAnimation();
     }
 }
