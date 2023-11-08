@@ -17,12 +17,18 @@ public class MainMenuScript : MonoBehaviour
     public GameObject KeyboardCanvas;
     public GameObject StatsPanel;
     public GameObject ChooseStatsPanel;
+    public GameObject changeAdminPassword;
 
     //admin objects
     public TMP_InputField enterPassword;
 
     //admin password
     public Text errorMessageText;
+
+    //change admin passord
+    public Text errorMessageChangeText;
+    public TMP_InputField enterOldPassword;
+    public TMP_InputField enterNewPassword;
 
     //stats objects
     public TMP_Text Title;
@@ -37,7 +43,7 @@ public class MainMenuScript : MonoBehaviour
     public Text[] sscenarioIncorrectNumber;
     public Text[] sscenarioQuestion;
 
-    private string adminPassword = "carter12";
+    private const string AdminPasswordKey = "AdminPassword";
 
     // Start is called before the first frame update
     void Start()
@@ -46,12 +52,23 @@ public class MainMenuScript : MonoBehaviour
         HowtoPlay.SetActive(false);
         SettingsMenu.SetActive(false);
         AdminMenu.SetActive(false);
+        if (!PlayerPrefs.HasKey(AdminPasswordKey))
+        {
+            PlayerPrefs.SetString(AdminPasswordKey, "carter12");
+            PlayerPrefs.Save(); // Save changes immediately
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void changeToChangePassword()
+    {
+        AdminMenu.SetActive(false);
+        changeAdminPassword.SetActive(true);
     }
 
     public void closeToStatsChoose()
@@ -63,12 +80,44 @@ public class MainMenuScript : MonoBehaviour
     {
         AdminMenu.SetActive(true);
         ChooseStatsPanel.SetActive(false);
+        changeAdminPassword.SetActive(false);
+        KeyboardCanvas.SetActive(false);
     }
-    
+
     public void changeToChooseStats()
     {
         ChooseStatsPanel.SetActive(true);
         AdminMenu.SetActive(false);
+    }
+
+    public void checkOldPassword()
+    {
+        string tempOld = enterOldPassword.text;
+        string tempNew = enterNewPassword.text;
+
+        string tempCurrent = PlayerPrefs.GetString(AdminPasswordKey);
+
+        Debug.Log("tempOld: " + tempOld);
+        Debug.Log("tempNew: " + tempNew);
+
+        // Reverse the tempCurrent string
+        char[] charArray = tempCurrent.ToCharArray();
+        Array.Reverse(charArray);
+        string reversedTempCurrent = new string(charArray);
+
+        if (tempOld == reversedTempCurrent)
+        {
+            ChangeAdminPassword(tempNew);
+            AdminMenu.SetActive(true);
+            changeAdminPassword.SetActive(false);
+            KeyboardCanvas.SetActive(false);
+        }
+        else
+        {
+            errorMessageChangeText.text = "old password + change does not match the inputted password";
+        }
+
+        
     }
 
     public void LakeStats()
@@ -199,7 +248,10 @@ public class MainMenuScript : MonoBehaviour
         string enteredPassword = enterPassword.text;
         KeyboardCanvas.SetActive(false);
 
-        if (enteredPassword == adminPassword)
+        // Get the admin password from PlayerPrefs
+        string adminStoredPassword = PlayerPrefs.GetString(AdminPasswordKey);
+
+        if (enteredPassword == adminStoredPassword)
         {
             MainMenuPanel.SetActive(false);
             AdminPassword.SetActive(false);
@@ -210,6 +262,15 @@ public class MainMenuScript : MonoBehaviour
             // Display an error message.
             errorMessageText.text = "Invalid password. Please try again.";
         }
+    }
+
+
+
+    public void ChangeAdminPassword(string newPassword)
+    {
+        PlayerPrefs.SetString(AdminPasswordKey, newPassword);
+        PlayerPrefs.Save(); // Save changes immediately
+        Debug.Log("Admin password changed successfully!");
     }
 
     public void changeToPassword()

@@ -48,8 +48,10 @@ public class TNVirtualKeyboard : MonoBehaviour
 	public void ShowVirtualKeyboard(){
 		vkCanvas.SetActive(true);
 	}
-	
-	public void HideVirtualKeyboard(){
+
+	public void HideVirtualKeyboard()
+	{
 		vkCanvas.SetActive(false);
 	}
+	
 }

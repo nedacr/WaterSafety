@@ -16,10 +16,15 @@ public class vkKey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-	
-	public void KeyClick(){
-		TNVirtualKeyboard.instance.KeyPress(k);
-	}
+
+    public void KeyClick()
+    {
+        TNVirtualKeyboard.instance.KeyPress(k);
+    }
+    public void adminClick()
+    {
+        TNVirt.instance.KeyPress(k);
+    }
 }
