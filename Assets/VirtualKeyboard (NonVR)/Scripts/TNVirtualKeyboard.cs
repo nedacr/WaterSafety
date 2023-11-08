@@ -15,7 +15,7 @@ public class TNVirtualKeyboard : MonoBehaviour
 
 	public TMP_InputField targetText;
 
-   
+    private int characterLimit = 3;
 
 
     // Start is called before the first frame update
@@ -33,9 +33,12 @@ public class TNVirtualKeyboard : MonoBehaviour
     }
 	
 	public void KeyPress(string k){
-		words += k;
-		targetText.text = words;	
-	}
+        if (words.Length < characterLimit)
+        {
+            words += k;
+            targetText.text = words;
+        }
+    }
 	
 	public void Del(){
 		words = words.Remove(words.Length - 1, 1);
