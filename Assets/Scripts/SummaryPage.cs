@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SummaryPage : MonoBehaviour
 {
@@ -40,6 +41,10 @@ public class SummaryPage : MonoBehaviour
 
     public TextMeshProUGUI[] scoreTexts;  // TextMeshPro components for displaying scores
     public TextMeshProUGUI[] nameTexts;
+
+    public string mainMenuSceneName = "MainMenu"; 
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -154,6 +159,7 @@ public class SummaryPage : MonoBehaviour
     }
     //----------------------------------------------------
 
+   
 
     public void changeToLeaderboardPanel()
     {
@@ -178,6 +184,7 @@ public class SummaryPage : MonoBehaviour
     public void returnToMenu()
     {
         //in this section i need to learn how to reload a game without taking too long. (maybe use a loading screen?)
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void changeBeachReview()
