@@ -14,6 +14,7 @@ public class SummaryPage : MonoBehaviour
     public GameObject LeaderboardPanel;
     public GameObject ScenarioPanel;
     public GameObject QuestionPanel;
+    public GameObject TimerPanel;
 
     //test
     public GameObject SelectionObject;
@@ -55,6 +56,8 @@ public class SummaryPage : MonoBehaviour
         LeaderboardPanel.SetActive(false);
         ScenarioPanel.SetActive(false);
 
+        hideTimerPanel();
+
         if (PlayerPrefs.GetInt("ResetLeaderboard", 0) == 1)
         {
             ResetLeaderboard();
@@ -71,6 +74,11 @@ public class SummaryPage : MonoBehaviour
     private void Awake()
     {
 
+    }
+
+    public void hideTimerPanel()
+    {
+        TimerPanel.SetActive(false);
     }
 
     //no idea what these are for yet so ignore
@@ -117,7 +125,7 @@ public class SummaryPage : MonoBehaviour
         string playerName = enterName.text;
         float timerValue = TimerScript.getTimer();
         // Calculate the new score
-        int score = (int)(questionPanel.getTotalPoints() * timerValue * 0.56f);
+        int score = (int)(questionPanel.getTotalPoints() * timerValue * 0.01f);
 
 
         for (int i = 0; i < scoreTexts.Length; i++)

@@ -184,7 +184,7 @@ public class NPC : MonoBehaviour
         else
             Debug.LogError("QuestionPanel is not assigned to the NPC.");
     }
-
+    
 
 
 }
