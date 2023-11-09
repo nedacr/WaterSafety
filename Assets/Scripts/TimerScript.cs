@@ -30,14 +30,14 @@ public class TimerScript : MonoBehaviour
     public GameObject LakeFinished;
     public GameObject SummaryScene;
     public GameObject AFKWarning;
-   
+
     // Start is called before the first frame update
     void Start()
     {
         MainTimer = 900;
         AFKTimer = 180;
         AFKTimerText2.color = Color.black;
-        if(AFKTimer > 60)
+        if (AFKTimer > 60)
         {
             AFKTimerText.color = Color.white;
             AFKWarning.SetActive(false);
@@ -51,7 +51,7 @@ public class TimerScript : MonoBehaviour
         AFKTimer -= Time.deltaTime;
         DisplayMainTimer(MainTimer);
         DisplayAFKTimer(AFKTimer);
-        if(AFKTimer <= AFKpop)
+        if (AFKTimer <= AFKpop)
         {
             AFKWarning.SetActive(true);
             ChangeAFK(AFKpop);
@@ -60,16 +60,16 @@ public class TimerScript : MonoBehaviour
         {
             AFKWarning.SetActive(false);
         }
-        
-        if(MainTimer <= 0)
+
+        if (MainTimer <= 0)
         {
             TimeUp();
         }
-        if(AFKTimer <= 0)
+        if (AFKTimer <= 0)
         {
             //sends game to Main Menu
         }
-        if(MainTimer <= (MainTimer * 2) / 3)
+        if (MainTimer <= (MainTimer * 2) / 3)
         {
             ChangeMainColor();
         }
@@ -77,15 +77,15 @@ public class TimerScript : MonoBehaviour
 
     private void ChangeMainColor()
     {
-        if(MainTimer <= 60)
+        if (MainTimer <= 60)
         {
             Timer.color = Color.red;
         }
-        else if(MainTimer <= MainTimer / 3)
+        else if (MainTimer <= MainTimer / 3)
         {
             Timer.color = orange;
         }
-        else if(MainTimer <= (MainTimer * 2) / 3)
+        else if (MainTimer <= (MainTimer * 2) / 3)
         {
             Timer.color = Color.yellow;
         }
@@ -112,11 +112,11 @@ public class TimerScript : MonoBehaviour
         {
             AFKTimerText.color = Color.red;
         }
-        else if(AFKpop <= AFKpop / 3)
+        else if (AFKpop <= AFKpop / 3)
         {
             AFKTimerText.color = orange;
         }
-        else if(AFKpop <= (AFKpop * 2) / 3)
+        else if (AFKpop <= (AFKpop * 2) / 3)
         {
             AFKTimerText.color = Color.yellow;
         }
@@ -124,11 +124,11 @@ public class TimerScript : MonoBehaviour
 
     void DisplayMainTimer(float TimeDisplayed)
     {
-        if(TimeDisplayed <= 0)
+        if (TimeDisplayed <= 0)
         {
             TimeDisplayed = 0;
         }
-        else if(TimeDisplayed > 0)
+        else if (TimeDisplayed > 0)
         {
             TimeDisplayed += 1;
         }
@@ -161,5 +161,10 @@ public class TimerScript : MonoBehaviour
     public void ResetAFKTimer()
     {
         AFKTimer = 180;
+    }
+
+    public float getTimer()
+    {
+        return MainTimer;
     }
 }

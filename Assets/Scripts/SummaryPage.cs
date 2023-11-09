@@ -42,9 +42,10 @@ public class SummaryPage : MonoBehaviour
     public TextMeshProUGUI[] scoreTexts;  // TextMeshPro components for displaying scores
     public TextMeshProUGUI[] nameTexts;
 
-    public string mainMenuSceneName = "MainMenu"; 
+    public string mainMenuSceneName = "MainMenu";
 
-    
+    // script passing
+    public TimerScript TimerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -114,7 +115,10 @@ public class SummaryPage : MonoBehaviour
     {
         QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
         string playerName = enterName.text;
-        int score = questionPanel.getTotalPoints();
+        float timerValue = TimerScript.getTimer();
+        // Calculate the new score
+        int score = (int)(questionPanel.getTotalPoints() * timerValue / 0.56f);
+
 
         for (int i = 0; i < scoreTexts.Length; i++)
         {
