@@ -229,7 +229,7 @@ public class QuestionPanel : MonoBehaviour
             currentNPC.changeSpotLight();
             totalPoints = totalPoints + currentNPC.getPoints();
             updateScore();
-            finishedCheck();
+            //finishedCheck();
         }
         else
         {
@@ -273,7 +273,7 @@ public class QuestionPanel : MonoBehaviour
             currentNPC.changeSpotLight();
             totalPoints = totalPoints + currentNPC.getPoints();
             updateScore();
-            finishedCheck();
+            //finishedCheck();
         }
         else
         {
@@ -317,7 +317,7 @@ public class QuestionPanel : MonoBehaviour
             currentNPC.changeSpotLight();
             totalPoints = totalPoints + currentNPC.getPoints();
             updateScore();
-            finishedCheck();
+            //finishedCheck();
         }
         else
         {
@@ -357,6 +357,8 @@ public class QuestionPanel : MonoBehaviour
     {
         Debug.Log("Pressed Button");
 
+        
+
         // Determine which ControlsPanel to activate based on NPC's SceneNumber
         switch (currentNPC.GetSceneNumber())
         {
@@ -385,6 +387,9 @@ public class QuestionPanel : MonoBehaviour
 
     public void Return()
     {
+
+        
+
         Debug.Log("Returned");
 
         // Determine which ControlsPanel to activate based on NPC's SceneNumber
@@ -414,7 +419,7 @@ public class QuestionPanel : MonoBehaviour
         }
 
         ResponsePanel.SetActive(false);
-
+        finishedCheck();
     }
 
     private void finishedCheck()
@@ -425,8 +430,12 @@ public class QuestionPanel : MonoBehaviour
             Debug.Log("EVERY SCENE IS FINISHED");
             return;
         }*/
+        
         if (AllDockNPCsCorrect() && !DockFinished)
         {
+            ControlsPanelDock.SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            ControlsPanelLake.SetActive(false);
             finishedDocks();
             Debug.Log("All Dock NPCs have provided the correct response!");
             DockFinished = true;
@@ -434,6 +443,9 @@ public class QuestionPanel : MonoBehaviour
         }
         if (AllBeachNPCsCorrect() && !BeachFinished)
         {
+            ControlsPanelDock.SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            ControlsPanelLake.SetActive(false);
             finishedBeach();
             Debug.Log("All Beach NPCs have provided the correct response!");
             BeachFinished = true;
@@ -441,6 +453,9 @@ public class QuestionPanel : MonoBehaviour
         }
         if (AllLakeNPCsCorrect() && !LakeFinished)
         {
+            ControlsPanelDock.SetActive(false);
+            ControlsPanelBeach.SetActive(false);
+            ControlsPanelLake.SetActive(false);
             finishedLake();
             Debug.Log("All Lake NPCs have provided the correct response!");
             LakeFinished = true;

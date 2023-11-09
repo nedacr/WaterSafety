@@ -117,7 +117,7 @@ public class SummaryPage : MonoBehaviour
         string playerName = enterName.text;
         float timerValue = TimerScript.getTimer();
         // Calculate the new score
-        int score = (int)(questionPanel.getTotalPoints() * timerValue / 0.56f);
+        int score = (int)(questionPanel.getTotalPoints() * timerValue * 0.56f);
 
 
         for (int i = 0; i < scoreTexts.Length; i++)
