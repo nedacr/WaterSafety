@@ -51,6 +51,14 @@ public class QuestionPanel : MonoBehaviour
         //ResponsePanel.SetActive(false);
     }
 
+    public void UpdateAllNPCPrefs()
+    {
+        foreach (NPC npc in allNPCs)
+        {
+            npc.updatePrefs();
+        }
+    }
+
     public List<NPC> GetCorrectOneNPC()
     {
         List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
@@ -627,7 +635,7 @@ public class QuestionPanel : MonoBehaviour
 
     private void allSceneFinished()
     {
-
+        UpdateAllNPCPrefs();
         Debug.Log("All scenes have been finished");
         switch (currentNPC.GetSceneNumber())
         {

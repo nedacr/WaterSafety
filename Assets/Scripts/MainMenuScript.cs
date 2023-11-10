@@ -296,6 +296,7 @@ public class MainMenuScript : MonoBehaviour
         AdminMenu.SetActive(false);
         KeyboardCanvas.SetActive(false);
         AdminPassword.SetActive(false);
+        MainMenuPanel.SetActive(true);
 
     }
 

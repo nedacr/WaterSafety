@@ -71,7 +71,7 @@ public class CameraMovement : MonoBehaviour
 
         if(moveSpeed > movementSpeed)
         {
-            Debug.Log("Acceleration applied");
+            //Debug.Log("Acceleration applied");
         }
         
 
@@ -130,8 +130,8 @@ public class CameraMovement : MonoBehaviour
             MoveCameraBackward();
         }
         
-        Debug.Log("Main Camera active in Scene: " + isActive);
-        Debug.Log("Current Speed is " + moveSpeed);
+        //Debug.Log("Main Camera active in Scene: " + isActive);
+        //Debug.Log("Current Speed is " + moveSpeed);
     }
 
     // Accelerating camera movement
@@ -154,7 +154,7 @@ public class CameraMovement : MonoBehaviour
             if (moveSpeed > maxSpeed)
             {
                 moveSpeed = maxSpeed;
-                Debug.Log("Speed Maxed");
+                //Debug.Log("Speed Maxed");
             }
             else
             {
@@ -162,16 +162,16 @@ public class CameraMovement : MonoBehaviour
                 velocity = 0;
                 velocity += acceleration * Time.deltaTime;
                 moveSpeed += velocity * Time.deltaTime;
-                print(moveSpeed);
+                //print(moveSpeed);
             }
             
             //this is supposed to work on zoom out and at the very beginning, but only activates on zoom in
-            Debug.Log("Zoomed Out");
+            //Debug.Log("Zoomed Out");
         }
         else
         {
             moveSpeed = movementSpeed;
-            Debug.Log("Zoomed In");
+            //Debug.Log("Zoomed In");
         }
     }
 
@@ -280,7 +280,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
         //AccelerateCameraMovement(ref movement);
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -295,7 +295,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
         //AccelerateCameraMovement(ref movement);
-        Debug.Log("Acceleration Used");
+       // Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -326,7 +326,7 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCameraNegativeAngle()
     {
-        print("Testing");
+        //print("Testing");
         mainCheck();
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
@@ -351,7 +351,7 @@ public class CameraMovement : MonoBehaviour
         mainCheck();
         Vector3 direction = (targetPosition - transform.position).normalized;
         Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Store the initial x and z rotations
         float initialXRotation = transform.rotation.eulerAngles.x;
@@ -385,7 +385,7 @@ public class CameraMovement : MonoBehaviour
         mainCheck();
         Vector3 movement = Vector3.left * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
@@ -398,7 +398,7 @@ public class CameraMovement : MonoBehaviour
         mainCheck();
         Vector3 movement = Vector3.right * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.x = Mathf.Clamp(newPosition.x, maxBackwardPosition, maxForwardPosition);
@@ -411,7 +411,7 @@ public class CameraMovement : MonoBehaviour
         mainCheck();
         Vector3 movement = Vector3.forward * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);
@@ -423,7 +423,7 @@ public class CameraMovement : MonoBehaviour
         mainCheck();
         Vector3 movement = Vector3.back * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + movement;
-        Debug.Log("Acceleration Used");
+        //Debug.Log("Acceleration Used");
 
         // Clamp the new position within the specified range
         newPosition.z = Mathf.Clamp(newPosition.z, maxBackwardPosition, maxForwardPosition);

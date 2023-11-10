@@ -32,6 +32,8 @@ public class SummaryPage : MonoBehaviour
     public GameObject Leaderboard;
     public GameObject KeyboardCanvas;
 
+    int flag = 0;
+
 
     //list of all scenario locations (is there a faster way?)
     public List<GameObject> scenarioCorrectObjects;
@@ -178,9 +180,15 @@ public class SummaryPage : MonoBehaviour
         gameObject.SetActive(false);
         LeaderboardPanel.SetActive(true);
         Leaderboard.SetActive(true);
-    }
 
-    public void changeToReviewPanel()
+        if (flag == 0)
+        {
+            NamePanel.SetActive(true);
+            flag = 1;
+        }
+        }
+
+        public void changeToReviewPanel()
     {
         gameObject.SetActive(false);
         ReviewPanel.SetActive(true);
@@ -191,6 +199,7 @@ public class SummaryPage : MonoBehaviour
         gameObject.SetActive(true);
         ReviewPanel.SetActive(false);
         LeaderboardPanel.SetActive(false);
+        NamePanel.SetActive(false);
     }
 
     public void returnToMenu()
