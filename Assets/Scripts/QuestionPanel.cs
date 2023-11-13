@@ -194,6 +194,8 @@ public class QuestionPanel : MonoBehaviour
     public void ShowQuestionsForNPC(NPC npc)
     {
         currentNPC = npc;
+
+        
         // Set the unique questions for the specific NPC
         // You can have a system to determine NPC-specific questions here
         string question1 = npc.GetQuestion1();
@@ -201,6 +203,8 @@ public class QuestionPanel : MonoBehaviour
         string question3 = npc.GetQuestion3();
 
         string npcQuestion = npc.getUniqueQuestion();
+
+        overheadQuestion.text = npcQuestion;
 
         // Set the questions in the UI text elements
         question1Text.text = question1;
