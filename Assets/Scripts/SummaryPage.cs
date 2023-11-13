@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SummaryPage : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SummaryPage : MonoBehaviour
     public GameObject LeaderboardPanel;
     public GameObject ScenarioPanel;
     public GameObject QuestionPanel;
+    public GameObject TimerPanel;
 
     //test
     public GameObject SelectionObject;
@@ -30,6 +32,8 @@ public class SummaryPage : MonoBehaviour
     public GameObject Leaderboard;
     public GameObject KeyboardCanvas;
 
+    int flag = 0;
+
 
     //list of all scenario locations (is there a faster way?)
     public List<GameObject> scenarioCorrectObjects;
@@ -41,6 +45,11 @@ public class SummaryPage : MonoBehaviour
     public TextMeshProUGUI[] scoreTexts;  // TextMeshPro components for displaying scores
     public TextMeshProUGUI[] nameTexts;
 
+    public string mainMenuSceneName = "MainMenu";
+
+    // script passing
+    public TimerScript TimerScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +57,8 @@ public class SummaryPage : MonoBehaviour
         ReviewPanel.SetActive(false);
         LeaderboardPanel.SetActive(false);
         ScenarioPanel.SetActive(false);
+
+        hideTimerPanel();
 
         if (PlayerPrefs.GetInt("ResetLeaderboard", 0) == 1)
         {
@@ -65,6 +76,11 @@ public class SummaryPage : MonoBehaviour
     private void Awake()
     {
 
+    }
+
+    public void hideTimerPanel()
+    {
+        TimerPanel.SetActive(false);
     }
 
     //no idea what these are for yet so ignore
@@ -109,7 +125,10 @@ public class SummaryPage : MonoBehaviour
     {
         QuestionPanel questionPanel = QuestionPanel.GetComponent<QuestionPanel>();
         string playerName = enterName.text;
-        int score = questionPanel.getTotalPoints();
+        float timerValue = TimerScript.getTimer();
+        // Calculate the new score
+        int score = (int)(questionPanel.getTotalPoints() * timerValue * 0.01f);
+
 
         for (int i = 0; i < scoreTexts.Length; i++)
         {
@@ -154,15 +173,22 @@ public class SummaryPage : MonoBehaviour
     }
     //----------------------------------------------------
 
+   
 
     public void changeToLeaderboardPanel()
     {
         gameObject.SetActive(false);
         LeaderboardPanel.SetActive(true);
         Leaderboard.SetActive(true);
-    }
 
-    public void changeToReviewPanel()
+        if (flag == 0)
+        {
+            NamePanel.SetActive(true);
+            flag = 1;
+        }
+        }
+
+        public void changeToReviewPanel()
     {
         gameObject.SetActive(false);
         ReviewPanel.SetActive(true);
@@ -173,11 +199,13 @@ public class SummaryPage : MonoBehaviour
         gameObject.SetActive(true);
         ReviewPanel.SetActive(false);
         LeaderboardPanel.SetActive(false);
+        NamePanel.SetActive(false);
     }
 
     public void returnToMenu()
     {
         //in this section i need to learn how to reload a game without taking too long. (maybe use a loading screen?)
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void changeBeachReview()

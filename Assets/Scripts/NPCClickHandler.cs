@@ -152,6 +152,17 @@ public class NPC : MonoBehaviour
 
     public bool getNeverWrong()
     {
+        
+        return neverWrong;
+    }
+
+    public bool GetCorrect()
+    {
+        return correct;
+    }
+
+    public void updatePrefs()
+    {
         if (neverWrong == true)
         {
             IncreaseCorrectCount();
@@ -161,14 +172,8 @@ public class NPC : MonoBehaviour
             IncreaseWrongCount();
         }
 
-        PlayerPrefs.SetString(WrongKeyPrefix + npcName, uniqueQuestion);
+        PlayerPrefs.SetString(QuestionPrefix + npcName, uniqueQuestion);
         PlayerPrefs.SetInt(LocationPrefix + npcName, GetSceneNumber());
-        return neverWrong;
-    }
-
-    public bool GetCorrect()
-    {
-        return correct;
     }
 
     public int GetSceneNumber()
@@ -184,7 +189,7 @@ public class NPC : MonoBehaviour
         else
             Debug.LogError("QuestionPanel is not assigned to the NPC.");
     }
-
+    
 
 
 }

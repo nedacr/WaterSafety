@@ -22,4 +22,9 @@ public class vkEnabler : MonoBehaviour
         TNVirtualKeyboard.instance.ShowVirtualKeyboard();
         TNVirtualKeyboard.instance.targetText = gameObject.GetComponent<TMP_InputField>();
     }
+    public void ShowAdmin()
+    {
+        TNVirt.instance.ShowVirtualKeyboard();
+        TNVirt.instance.targetText = gameObject.GetComponent<TMP_InputField>();
+    }
 }
