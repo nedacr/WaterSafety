@@ -7,8 +7,10 @@ public class StartGameScript : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
-        //troubleshooting start button
+        string sceneNameToLoad = "SelectCharacter"; // Replace "YourSceneName" with the actual name of your scene
+
+        // Load the scene by name
+        SceneManager.LoadScene(sceneNameToLoad);
         Debug.Log("Game has begun.");
     }
 
