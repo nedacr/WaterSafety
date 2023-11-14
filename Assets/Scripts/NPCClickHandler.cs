@@ -7,6 +7,8 @@ public class NPC : MonoBehaviour
 
     public QuestionPanel questionPanel;
 
+    public AudioSource ca, wa;
+
     public string npcName = "placeHolder"; // should be set to a number
     private const string CorrectKeyPrefix = "CorrectCount_";
     private const string WrongKeyPrefix = "WrongCount_";
@@ -35,6 +37,7 @@ public class NPC : MonoBehaviour
 
     public void IncreaseCorrectCount()
     {
+        ca.Play();
         int currentCorrectCount = PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
         currentCorrectCount++;
         PlayerPrefs.SetInt(CorrectKeyPrefix + npcName, currentCorrectCount);
@@ -43,6 +46,7 @@ public class NPC : MonoBehaviour
     // Use this method to increase the wrong count for the NPC
     public void IncreaseWrongCount()
     {
+        wa.Play();
         int currentWrongCount = PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
         currentWrongCount++;
         PlayerPrefs.SetInt(WrongKeyPrefix + npcName, currentWrongCount);
