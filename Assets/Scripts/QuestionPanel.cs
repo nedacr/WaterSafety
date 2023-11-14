@@ -59,7 +59,37 @@ public class QuestionPanel : MonoBehaviour
         }
     }
 
-    public List<NPC> GetCorrectOneNPC()
+    
+
+    void DisableOtherColliders()
+    {
+        // Get all colliders in the scene (you might want to narrow this down based on your specific needs)
+        Collider[] allColliders = GameObject.FindObjectsOfType<Collider>();
+
+        // Disable colliders on objects that are not the panel
+        foreach (Collider collider in allColliders)
+        {
+            if (collider.gameObject != gameObject)
+            {
+                collider.enabled = false;
+            }
+        }
+    }
+
+    void EnableOtherColliders()
+    {
+        // Get all colliders in the scene (you might want to narrow this down based on your specific needs)
+        Collider[] allColliders = GameObject.FindObjectsOfType<Collider>();
+
+        // Enable colliders on all objects
+        foreach (Collider collider in allColliders)
+        {
+            collider.enabled = true;
+        }
+    }
+
+
+public List<NPC> GetCorrectOneNPC()
     {
         List<NPC> unsortedNPCs = new List<NPC>(allNPCs);
 
@@ -218,6 +248,7 @@ public class QuestionPanel : MonoBehaviour
             ControlsPanelDock.SetActive(false);
             ControlsPanelBeach.SetActive(false);
             ControlsPanelLake.SetActive(false);
+            DisableOtherColliders();
         }
     }
 
@@ -231,7 +262,7 @@ public class QuestionPanel : MonoBehaviour
         responseText.text = response1;
         //display the response panel
         gameObject.SetActive(false);
-
+        EnableOtherColliders();
         //unhide next panel
         ResponsePanel.SetActive(true);
 
@@ -275,6 +306,7 @@ public class QuestionPanel : MonoBehaviour
         responseText.text = response1;
         //display the response panel
         gameObject.SetActive(false);
+        EnableOtherColliders();
 
         //unhide next panel
         ResponsePanel.SetActive(true);
@@ -319,6 +351,7 @@ public class QuestionPanel : MonoBehaviour
         responseText.text = response1;
         //display the response panel
         gameObject.SetActive(false);
+        EnableOtherColliders();
 
         //unhide next panel
         ResponsePanel.SetActive(true);
@@ -395,6 +428,7 @@ public class QuestionPanel : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+        EnableOtherColliders();
     }
 
     public void Return()
@@ -564,6 +598,7 @@ public class QuestionPanel : MonoBehaviour
 
         SummaryPanel.SetActive(true);
         gameObject.SetActive(false);
+        EnableOtherColliders();
 
     }
 
