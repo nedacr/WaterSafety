@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour
 {
@@ -68,6 +69,7 @@ public class TimerScript : MonoBehaviour
         if (AFKTimer <= 0)
         {
             //sends game to Main Menu
+            SceneManager.LoadScene(0);
         }
         if (MainTimer <= (MainTimer * 2) / 3)
         {
