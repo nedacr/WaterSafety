@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour
 
     public void IncreaseCorrectCount()
     {
-        ca.Play();
+        //ca.Play();
         int currentCorrectCount = PlayerPrefs.GetInt(CorrectKeyPrefix + npcName, 0);
         currentCorrectCount++;
         PlayerPrefs.SetInt(CorrectKeyPrefix + npcName, currentCorrectCount);
@@ -46,7 +46,7 @@ public class NPC : MonoBehaviour
     // Use this method to increase the wrong count for the NPC
     public void IncreaseWrongCount()
     {
-        wa.Play();
+        //wa.Play();
         int currentWrongCount = PlayerPrefs.GetInt(WrongKeyPrefix + npcName, 0);
         currentWrongCount++;
         PlayerPrefs.SetInt(WrongKeyPrefix + npcName, currentWrongCount);
