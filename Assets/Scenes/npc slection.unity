@@ -5244,6 +5244,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 2081487581}
   questionPanel: {fileID: 0}
+  npcName: placeHolder
+  SceneNumber: 0
+  uniqueQuestion: What is this NPC doing Wrong?
   question1: How are you?
   question2: Are you okay?
   question3: Are your parents around?
@@ -5251,6 +5254,8 @@ MonoBehaviour:
   response2: No I am not okay
   response3: No they left about an hour ago
   answer: No I am not okay
+  reviewQuestion: this is the question placeholder
+  reviewAnswer: this is the answer placeholder
 --- !u!136 &629997619
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5468,6 +5473,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1c1b339b4af3b4d9c868cf6370c4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlsPanelDock: {fileID: 0}
+  ControlsPanelBeach: {fileID: 0}
+  smoothness: 2
+  ControlsPanelLake: {fileID: 0}
+  RealControlsPanelBeach: {fileID: 0}
 --- !u!1001 &692073256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13197,6 +13207,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 1079534760}
   questionPanel: {fileID: 0}
+  npcName: placeHolder
+  SceneNumber: 0
+  uniqueQuestion: What is this NPC doing Wrong?
   question1: Did you have Pizza?
   question2: Did you Drink Water?
   question3: Did you fall off the boat?
@@ -13204,6 +13217,8 @@ MonoBehaviour:
   response2: I drank at least 4 cups
   response3: Yah, could you tell?
   answer: I did have Pizza Today
+  reviewQuestion: this is the question placeholder
+  reviewAnswer: this is the answer placeholder
 --- !u!136 &1573377852
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14041,6 +14056,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlightLight: {fileID: 808579192}
   questionPanel: {fileID: 0}
+  npcName: placeHolder
+  SceneNumber: 0
+  uniqueQuestion: What is this NPC doing Wrong?
   question1: Is today Monday?
   question2: Is today Tuesday?
   question3: Is today Wednesday?
@@ -14048,6 +14066,8 @@ MonoBehaviour:
   response2: Today is not Tuesday
   response3: Today is Wednesday
   answer: Today is not Monday
+  reviewQuestion: this is the question placeholder
+  reviewAnswer: this is the answer placeholder
 --- !u!136 &1708922674
 CapsuleCollider:
   m_ObjectHideFlags: 0
