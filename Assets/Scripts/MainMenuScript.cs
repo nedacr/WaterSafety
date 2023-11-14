@@ -43,7 +43,7 @@ public class MainMenuScript : MonoBehaviour
     public Text[] sscenarioIncorrectNumber;
     public Text[] sscenarioQuestion;
 
-    private const string AdminPasswordKey = "AdminPassword";
+    private const string AdminPasswordKey = "admin";
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +54,7 @@ public class MainMenuScript : MonoBehaviour
         AdminMenu.SetActive(false);
         if (!PlayerPrefs.HasKey(AdminPasswordKey))
         {
-            PlayerPrefs.SetString(AdminPasswordKey, "carter12");
+            PlayerPrefs.SetString(AdminPasswordKey, "admin");
             PlayerPrefs.Save(); // Save changes immediately
         }
     }
