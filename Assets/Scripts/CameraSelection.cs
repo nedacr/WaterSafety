@@ -14,6 +14,7 @@ public class CameraSelection : MonoBehaviour
     public GameObject RealControlsPanelBeach;
     public static List<GameObject> cameras;
     //defualt index of cameras
+    //not referenced in any script, is it used in the editor?
     private int selectionIndex = 0;
 
     // Start is called before the first frame update
