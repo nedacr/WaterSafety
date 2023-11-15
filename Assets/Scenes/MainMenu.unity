@@ -7183,7 +7183,7 @@ GameObject:
   - component: {fileID: 406531748}
   - component: {fileID: 406531747}
   m_Layer: 0
-  m_Name: UI Button Click
+  m_Name: Button Click
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
