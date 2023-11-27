@@ -35,7 +35,7 @@ public class TimerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MainTimer = 900;
+        MainTimer = 420;
         AFKTimer = 180;
         AFKTimerText2.color = Color.black;
         if (AFKTimer > 60)

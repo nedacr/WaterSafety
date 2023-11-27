@@ -7,6 +7,9 @@ public class SelectiontoGame : MonoBehaviour
 {
    public void SelectionToGameScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        int randomSceneIndex = Random.Range(1, 5);
+        Debug.Log(randomSceneIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + randomSceneIndex);
     }
 }

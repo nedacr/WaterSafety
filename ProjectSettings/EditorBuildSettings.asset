@@ -15,6 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/CameraMovement.unity
     guid: c626316b95cef70439f6f0fd335ced11
   - enabled: 1
+    path: Assets/Scenes/CameraMovement 1.unity
+    guid: c6cb865b12e00ec4fb17351f0a81875c
+  - enabled: 1
+    path: Assets/Scenes/CameraMovement 2.unity
+    guid: f0b2f9c37d187f247b1966b172351515
+  - enabled: 1
+    path: Assets/Scenes/CameraMovement 3.unity
+    guid: a1be9423f064ed64487f286a65c63c2a
+  - enabled: 1
+    path: Assets/Scenes/CameraMovement 4.unity
+    guid: 3d8d91dc49a02bd4ba39a653ead9b5a0
+  - enabled: 1
     path: Assets/Scenes/npc slection.unity
     guid: 59c9b939a5414df40bfdee8dacebb7f5
   - enabled: 0
