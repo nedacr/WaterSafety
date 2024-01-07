@@ -30,12 +30,17 @@ npm install npm@latest -g
    npm install
    ```
 3. Open the application within the folder, called Capstone1.0.
+4. Click the Play arrow and wait for the game to load.
 
-## Usage example
+## Admin Uses
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+The initial password is carter12. This can be changed in the admin portal by inversing the current password and setting a new one.
+![passwordimg](https://github.com/nedacr/WaterSafety/assets/88903338/dd1b9e24-99ee-4173-8db0-b46fda2bc219)
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+Within the Admin portal, the volume can be adjusted using eh slider at the top.
+
+The admin portal also shows all data relating to each scenario and how many times it was answered correctly or incorrectly.
+![choiceimg](https://github.com/nedacr/WaterSafety/assets/88903338/cf755fcf-586d-4c39-8253-2f9b9fef02fe)
 
 ## Meta
 
