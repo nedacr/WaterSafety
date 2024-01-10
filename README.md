@@ -48,4 +48,4 @@ Caden Robertson - Team Lead/Lead Developer – Robertsoncaden02@gmail.com
 
 Tahj Brown - Lead Designer and 3D Modeler
 
-Denice Jaquez - Lead Story Builder and World Designer
+Denice Jaquez - Lead Story Builder and World Designer - Denicejaquez0@gmail.com
